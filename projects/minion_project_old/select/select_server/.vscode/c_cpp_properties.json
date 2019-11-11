@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "../fd_listener",
+                "../../../../cpp/uncopyable",
+                "../../../../cpp/shared_ptr",
+                "/usr/include/boost",
+                "../../../../cpp/thread",
+                "../../server"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

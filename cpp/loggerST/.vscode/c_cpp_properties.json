@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "${default}",
+            "includePath": [
+                "../uncopyable",
+                "../loggerMT",
+                "../logMsg",
+                "../thread",
+                "../waitable_queue",
+                "../writer",
+                "/home/student/Desktop/git/cpp/shared_ptr"
+            ]
+        }
+    ],
+    "version": 4
+}

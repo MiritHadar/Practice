@@ -1,0 +1,11 @@
+{
+    "breadcrumbs.enabled": true,
+    "team.showWelcomeMessage": false,
+    "files.autoSave": "afterDelay",
+    
+    "zenMode.hideLineNumbers": false,
+    "editor.wordWrapColumn": 150,
+    "C_Cpp.updateChannel": "Insiders",
+    "editor.minimap.enabled": false,
+    "C_Cpp.errorSquiggles": "Enabled"
+}

@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c89",
+            "cppStandard": "c++98",
+            "intelliSenseMode": "${default}",
+            "includePath": [
+				"${workspaceFolder}/",
+				"${workspaceFolder}/../storage/",
+				"${workspaceFolder}/../packet/",
+				"${workspaceFolder}/../request/",
+				"${workspaceFolder}/../response/",
+				"${workspaceFolder}/../../../cpp/uncopyable"
+            ]
+        }
+    ],
+    "version": 4
+}

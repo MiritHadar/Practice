@@ -1,0 +1,29 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "../../../git/system_programming/tcp/server",
+                "../../../git/system_programming/udp/server",
+                "../../../git/system_programming/tcp/client",
+                "../../../git/system_programming/udp/client",
+                "../../../git/system_programming/udp/client",
+                "/usr/include/c++/5/tr1"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "compilerArgs": [
+                "../../../system_programming/udp/server",
+                "../../../system_programming/udp/client",
+                "../../../system_programming/tcp/server",
+                "../../../system_programming/tcp/client",
+                "../../../cpp/logging"
+            ]
+        }
+    ],
+    "version": 4
+}

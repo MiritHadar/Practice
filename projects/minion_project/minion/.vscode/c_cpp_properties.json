@@ -1,0 +1,47 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c89",
+            "cppStandard": "c++98",
+            "intelliSenseMode": "${default}",
+            "includePath": [
+				"${workspaceFolder}/",
+				"${workspaceFolder}/../../../cpp/loggerMT_singleton/",
+				"${workspaceFolder}/../../../cpp/loggerMT/",
+				"${workspaceFolder}/../../../cpp/writer/",
+				"${workspaceFolder}/../../../cpp/thread/",
+				"${workspaceFolder}/../../../cpp/waitableQueue/",
+				"${workspaceFolder}/../../../cpp/uncopyable/",
+				"${workspaceFolder}/../../../cpp/factory/",
+				"${workspaceFolder}/../../../cpp/sharedPtr/",
+				"${workspaceFolder}/../storage/",
+				"${workspaceFolder}/../action/",
+				"${workspaceFolder}/../request/",
+				"${workspaceFolder}/../packet/",
+				"${workspaceFolder}/../response/",
+				"${workspaceFolder}/../read_action/",
+				"${workspaceFolder}/../write_action/",
+				"${workspaceFolder}/../server/",
+				"${workspaceFolder}/../request_handler/",
+				"${workspaceFolder}/../reactor/",
+				"${workspaceFolder}/../fd_listener/",
+				"${workspaceFolder}/../",
+				"${workspaceFolder}/../dir_monitor/",
+				"${workspaceFolder}/../dl_loader/",
+				"${workspaceFolder}/../shared_object/",
+				"${workspaceFolder}/../service_locator/",
+				"${workspaceFolder}/../master_proxy/"
+            ]
+        }
+    ],
+    "version": 4
+}
