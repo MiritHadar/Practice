@@ -1,12 +1,12 @@
 /******************************************************************************/
-/* author: 		Ori Michaeli											  	  */
+/* author: 		Mirit Hadar											  	  */
 /* Reviewer: 					       										  */
 /* version: 	Draft			  		                                      */
 /* Last update: 31-10-2019					                                  */
 /******************************************************************************/
 
 #include "shared_object.hpp"		//	Header file	
-#include "loggerMT_singleton.hpp"	//	logger
+#include "loggerST.hpp"	//	logger
 
 
 /*************************Helper functions*************************************/

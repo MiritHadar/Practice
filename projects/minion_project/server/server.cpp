@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* author: 		Ori Michaeli											  	  */
+/* author: 		Mirit Hadar											  	  */
 /* Reviewer: 					       										  */
 /* version: 	Draft			  		                                      */
 /* Last update: 06-10-2019					                                  */
@@ -15,7 +15,7 @@
 #include <unistd.h>         //sleep
 #include <stdint.h>
 #include "loggerMT.hpp"
-#include "loggerMT_singleton.hpp"
+#include "loggerST.hpp"
 
 #include "server.hpp"	//	Header file	
 

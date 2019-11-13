@@ -8,7 +8,7 @@ ROOT_DIR = ../../..
 PROJ_SRCS = request_handler.cpp request_handler_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = $(ROOT_DIR)/projects/minion_project/storage $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/sharedPtr $(ROOT_DIR)/cpp/factory $(ROOT_DIR)/projects/minion_project/action $(ROOT_DIR)/projects/minion_project/request $(ROOT_DIR)/projects/minion_project/response $(ROOT_DIR)/projects/minion_project/packet
+PROJ_INC_DIR = $(ROOT_DIR)/projects/minion_project/storage $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/shared_ptr $(ROOT_DIR)/cpp/factory $(ROOT_DIR)/projects/minion_project/action $(ROOT_DIR)/projects/minion_project/request $(ROOT_DIR)/projects/minion_project/response $(ROOT_DIR)/projects/minion_project/packet
 
 
 

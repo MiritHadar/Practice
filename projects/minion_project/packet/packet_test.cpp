@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* author: 		Ori Michaeli											  	  */
+/* author: 		Mirit Hadar											  	  */
 /* Reviewer: 					       										  */
 /* version: 	Draft			  		                                      */
 /* Last update: 07-10-2019					                                  */

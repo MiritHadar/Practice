@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* author: 		Ori Michaeli											  	  */
+/* author: 		Mirit Hadar											  	  */
 /* Reviewer: 					       										  */
 /* version: 	Draft			  		                                      */
 /* Last update: 31-10-2019					                                  */
@@ -8,7 +8,7 @@
 #include <iostream>				//	cout 	
 
 #include "shared_object.hpp"	//	Header file		
-#include "sharedPtr.hpp"
+#include "shared_ptr.hpp"
 #include "action.hpp"
 
 using namespace ilrd;

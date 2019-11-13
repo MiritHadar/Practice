@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "${default}",
+            "includePath": [
+                "../logMsg",
+                "../thread",
+                "../waitable_queue",
+                "../uncopyable",
+                "../writer",
+                "/home/student/Desktop/git/cpp/logMsg"
+            ]
+        }
+    ],
+    "version": 4
+}

@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* author: 		Ori Michaeli											  	  */
+/* author: 		Mirit Hadar											  	  */
 /* Reviewer: 					       										  */
 /* version: 	Draft			  		                                      */
 /* Last update: 07-10-2019					                                  */
@@ -17,7 +17,7 @@
 #include "request.hpp"
 #include "response.hpp"
 #include "storage.hpp"
-#include "sharedPtr.hpp"
+#include "shared_ptr.hpp"
 
 extern "C"
 {

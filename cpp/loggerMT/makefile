@@ -1,3 +1,4 @@
+
 # make clean/all CONFIG=Debug/Release ARCH=linux64/raspi ECHO=0/1 NO_WARN=0/1 VER=c++98/c++11
 
 # the parrent dir of "arch" dir
@@ -7,28 +8,42 @@ ROOT_DIR = ../..
 PROJ_SRCS = loggerMT.cpp loggerMT_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = $(ROOT_DIR)/cpp/logMsg $(ROOT_DIR)/cpp/thread $(ROOT_DIR)/cpp/waitable_queue $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/writer
+PROJ_INC_DIR = $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/writer $(ROOT_DIR)/cpp/thread $(ROOT_DIR)/cpp/waitable_queue
 
 # the executable file
-PROJ_OUT = loggerMT_test.out
+PROJ_OUT = loggerMT_test.out 
 
 # list of compiler flags (prepended with "-" sign)
-PROJ_CFLAGS = #-Wunused-but-set-variable -std=c++11
+PROJ_CFLAGS = 
 
 PROJ_MACROS =
 
 # additional object files (created by other projects)
-PROJ_ADD_OBJS = thread.obj logMsg.obj writer.obj
+PROJ_ADD_OBJS = thread.obj
 
 # additional libraries
-PROJ_LIBS = boost_system boost_thread boost_chrono
+PROJ_LIBS = pthread boost_system boost_thread boost_chrono
+
+LIB_FLAG  = 0
+PROJ_LIBS_DIR = .
 
 # linker flags
-PROJ_LDFLAGS = -pthread
+PROJ_LDFLAGS =
 
 # list of projects (makefiles) this project depends on
-PROJ_DEPENDS  = $(ROOT_DIR)/cpp/thread/makefile $(ROOT_DIR)/cpp/logMsg/makefile $(ROOT_DIR)/cpp/waitable_queue/makefile $(ROOT_DIR)/cpp/writer/makefile
+PROJ_DEPENDS  = $(ROOT_DIR)/cpp/thread/makefile
 
 include $(ROOT_DIR)/Make/Project.mak
 
 
+
+
+################################################################################
+
+# make -f another name - for working with makefile with another name
+
+# ECHO=1 - for status
+
+# CONFIG=Release/Debug - for changing mode
+
+#ARCH=rsbi/linux64 - for changing arch

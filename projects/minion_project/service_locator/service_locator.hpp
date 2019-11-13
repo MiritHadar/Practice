@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* author: 		Ori Michaeli											  	  */
+/* author: 		Mirit Hadar											  	  */
 /* Reviewer: 					       										  */
 /* version: 	Draft			  		                                      */
 /* Last update: 04-11-2019					                                  */
@@ -16,7 +16,7 @@
 #include <map>					// 	map
 
 #include "uncopyable.hpp"		// 	For inaccessible CCtor and assign operator
-#include "sharedPtr.hpp"		//	SharedPtr header
+#include "shared_ptr.hpp"		//	SharedPtr header
 
 namespace ilrd
 {

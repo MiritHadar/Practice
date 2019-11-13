@@ -8,7 +8,7 @@ ROOT_DIR = ../../..
 PROJ_SRCS = reactor.cpp reactor_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = $(ROOT_DIR)/cpp/uncopyable ../fd_listener $(ROOT_DIR)/cpp/loggerMT $(ROOT_DIR)/cpp/loggerMT_singleton $(ROOT_DIR)/cpp/writer $(ROOT_DIR)/cpp/thread $(ROOT_DIR)/cpp/waitableQueue
+PROJ_INC_DIR = $(ROOT_DIR)/cpp/uncopyable ../fd_listener $(ROOT_DIR)/cpp/loggerMT $(ROOT_DIR)/cpp/loggerST $(ROOT_DIR)/cpp/writer $(ROOT_DIR)/cpp/thread $(ROOT_DIR)/cpp/waitable_queue $(ROOT_DIR)/cpp/shared_ptr
 
 # the executable file
 PROJ_OUT = reactor_test.out
@@ -19,7 +19,7 @@ PROJ_CFLAGS =
 PROJ_MACROS =
 
 # additional object files (created by other projects)
-PROJ_ADD_OBJS =	fd_listener.obj loggerMT_singleton.so
+PROJ_ADD_OBJS =	fd_listener.obj loggerST.so
 
 # additional libraries
 PROJ_LIBS = pthread boost_system boost_thread boost_chrono

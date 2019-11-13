@@ -8,7 +8,7 @@ ROOT_DIR = ../../..
 PROJ_SRCS = service_locator_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/sharedPtr
+PROJ_INC_DIR = $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/shared_ptr
 
 # the executable file
 PROJ_OUT = service_locator_test.out

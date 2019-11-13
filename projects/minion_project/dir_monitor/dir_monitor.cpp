@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* author: 		Ori Michaeli											  	  */
+/* author: 		Mirit Hadar											  	  */
 /* Reviewer: 					       										  */
 /* version: 	Draft			  		                                      */
 /* Last update: 29-10-2019					                                  */
@@ -13,7 +13,7 @@
 #include <project_exceptions.hpp>	//	project exceptions
 
 #include "dir_monitor.hpp"			//	Header file	
-#include "loggerMT_singleton.hpp"	//	logger instance
+#include "loggerST.hpp"	//	logger instance
 #include "reactor.hpp"
 #include "factory.hpp"
 #include "action.hpp"

@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* author: 		Ori Michaeli											  	  */
+/* author: 		Mirit Hadar											  	  */
 /* Reviewer: 					       										  */
 /* version: 	Draft			  		                                      */
 /* Last update: 07-10-2019					                                  */
@@ -7,7 +7,7 @@
 
 #include "write_action.hpp"			//	Header file	
 #include "loggerMT.hpp"				//	LoggerMT
-#include "loggerMT_singleton.hpp"
+#include "loggerST.hpp"
 
 static const uint32_t READ_OR_WRITE_FLAG = 1;
 static const uint32_t UID = 8;
@@ -25,7 +25,7 @@ namespace ilrd
 Response WriteAction::Do(Storage &storage_, Request request_)
 {
 	LoggerMT *logger = GetSOInstance();
-    logger->Log(ilrd::LoggerMT::ERROR, "WriteAction Do function");
+    //logger->Log(ilrd::LoggerMT::ERROR, "WriteAction Do function");
     Response response;
     response.SetActionType(request_.GetActionType());
     response.SetUID(request_.GetUID());

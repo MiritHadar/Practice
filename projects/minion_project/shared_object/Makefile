@@ -8,7 +8,7 @@ ROOT_DIR = ../../..
 PROJ_SRCS = shared_object.cpp shared_object_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/loggerMT $(ROOT_DIR)/cpp/writer $(ROOT_DIR)/cpp/thread $(ROOT_DIR)/cpp/waitableQueue $(ROOT_DIR)/cpp/loggerMT_singleton $(ROOT_DIR)/projects/minion_project $(ROOT_DIR)/cpp/sharedPtr $(ROOT_DIR)/projects/minion_project/action $(ROOT_DIR)/projects/minion_project/storage $(ROOT_DIR)/projects/minion_project/request $(ROOT_DIR)/projects/minion_project/response $(ROOT_DIR)/projects/minion_project/packet
+PROJ_INC_DIR = $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/loggerMT $(ROOT_DIR)/cpp/writer $(ROOT_DIR)/cpp/thread $(ROOT_DIR)/cpp/waitable_queue $(ROOT_DIR)/cpp/loggerST $(ROOT_DIR)/projects/minion_project $(ROOT_DIR)/cpp/shared_ptr $(ROOT_DIR)/projects/minion_project/action $(ROOT_DIR)/projects/minion_project/storage $(ROOT_DIR)/projects/minion_project/request $(ROOT_DIR)/projects/minion_project/response $(ROOT_DIR)/projects/minion_project/packet
 
 # the executable file
 PROJ_OUT = shared_object_test.out
@@ -19,7 +19,7 @@ PROJ_CFLAGS =
 PROJ_MACROS =
 
 # additional object files (created by other projects)
-PROJ_ADD_OBJS = loggerMT_singleton.so
+PROJ_ADD_OBJS = loggerST.so
 
 # additional libraries
 PROJ_LIBS = pthread boost_system boost_thread boost_chrono dl

@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* author: 		Ori Michaeli											  	  */
+/* author: 		Mirit Hadar											  	  */
 /* Reviewer: 					       										  */
 /* version: 	Draft			  		                                      */
 /* Last update: 07-10-2019					                                  */
@@ -9,7 +9,7 @@
 
 #include "read_action.hpp"		//	Header file	
 #include "loggerMT.hpp"			//	LoggerMT
-#include "loggerMT_singleton.hpp"
+#include "loggerST.hpp"
 
 static const uint32_t READ_OR_WRITE_FLAG = 1;
 static const uint32_t UID = 8;

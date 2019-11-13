@@ -1,44 +1,106 @@
-/*
-********************************************************************************
+/******************************************************************************/
+/* author: 		Mirit Hadar											  	  */
+/* Reviewer: 					       										  */
+/* version: 	Draft			  		                                      */
+/* Last update: 24-09-2019					                                  */
+/******************************************************************************/
 
-Developer : Mirit Hadar
-Reviewer :
-Last Update : 
-Status :
+#ifndef ILRD_RD6768_LOGGERMT
+#define ILRD_RD6768_LOGGERMT
 
-********************************************************************************
-*/
+#if __cplusplus < 201103L
+#define nullptr NULL
+#define noexcept throw()
+#endif
 
-#ifndef __OL67_loggerMT
-#define __OL67_loggerMT
+#include <iostream>			//	string, ostream
 
-#include "logMsg.hpp"
-#include "thread.hpp"
-#include "waitable_queue.hpp"
 #include "uncopyable.hpp"
 #include "writer.hpp"
-
-#include <iostream>
 
 namespace ilrd
 {
 
-class LoggerMT : public Uncopyable
+class MsgFunctor;
+
+class LoggerMT : private Uncopyable
 {
 public:
-    explicit LoggerMT(ostream &stream_ = cout, Severity severity_ = ERROR);
-    void Log(string msg_ = "", Severity severity_ = ERROR);
-    void SetOutput(ostream &stream_);
-    void SetSeverity(Severity severity_);
+    enum Severity
+    {
+        SDEBUG = 0,
+        INFO = 1,
+        WARNING = 2,
+        ERROR = 3
+    };
+
+    //Constructors
+    explicit LoggerMT(Severity severity_ = WARNING, 
+					  std::ostream *stream_ = &std::cerr);
+    //~LoggerMT()noexcept = default;
+
+    //Operators
+
+    //Functions
+    void Log(Severity msgSeverity_, const char *msg_);
+    void Log(Severity msgSeverity_, const std::string &msg_);
+
+    void SetOutputSeverity(Severity outputSeverity_);
+	Severity GetOutputSeverity() const;
+    void SetOutput(std::ostream &output_);   
 
 private:
-    ostream *m_stream;
-    Writer m_writer;
+    //Member variables
     Severity m_severity;
+    std::ostream *m_stream;
+	Writer<MsgFunctor> m_writer;
 };
 
-} // namespace ilrd
+/******************************************************************************/
 
-#endif /* __OL67_loggerMT */
+class LoggerMsg 
+{
+public:
+    //Constructors
+    explicit LoggerMsg(const std::string msg_ = "", 
+						std::ostream *stream_ = &std::cerr);
+    LoggerMsg(const LoggerMsg &other_);
+    //~LoggerMsg()noexcept = default;
 
+    //Operators
+    //LoggerMsg& operator=(const LoggerMsg& other_) = default;
 
+    //Functions
+    std::string GetMsg() const;
+	std::ostream *GetStream() const;
+
+private:
+    //Member variables
+	std::string m_msg;
+	std::ostream *m_stream;
+};
+
+/******************************************************************************/
+
+class MsgFunctor 
+{
+public:
+    //Constructors
+	explicit MsgFunctor();
+    explicit MsgFunctor(LoggerMsg loggerMsg_);
+    //MsgFunctor(const MsgFunctor& other_) = default;
+    //~MsgFunctor()noexcept = default;
+
+    //Operators
+    //MsgFunctor& operator=(const MsgFunctor& other_) = default;
+	void operator()();
+    //Functions
+
+private:
+    //Member variables
+	LoggerMsg m_loggerMsg;
+};
+
+}//namespace ilrd
+
+#endif  //ILRD_RD6768_LOGGERMT

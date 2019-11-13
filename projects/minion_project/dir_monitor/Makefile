@@ -8,7 +8,7 @@ ROOT_DIR = ../../..
 PROJ_SRCS = dir_monitor.cpp dir_monitor_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/sharedPtr $(ROOT_DIR)/cpp/loggerMT $(ROOT_DIR)/cpp/writer $(ROOT_DIR)/cpp/thread $(ROOT_DIR)/cpp/waitableQueue $(ROOT_DIR)/cpp/loggerMT_singleton $(ROOT_DIR)/projects/minion_project/fd_listener $(ROOT_DIR)/projects/minion_project/action $(ROOT_DIR)/projects/minion_project/storage $(ROOT_DIR)/projects/minion_project/request $(ROOT_DIR)/projects/minion_project/response $(ROOT_DIR)/projects/minion_project/packet $(ROOT_DIR)/projects/minion_project/minion $(ROOT_DIR)/projects/minion_project/server $(ROOT_DIR)/projects/minion_project/request_handler $(ROOT_DIR)/projects/minion_project/ $(ROOT_DIR)/projects/minion_project/service_locator $(ROOT_DIR)/projects/minion_project/dl_loader $(ROOT_DIR)/projects/minion_project/shared_object $(ROOT_DIR)/cpp/factory $(ROOT_DIR)/projects/minion_project/reactor
+PROJ_INC_DIR = $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/shared_ptr $(ROOT_DIR)/cpp/loggerMT $(ROOT_DIR)/cpp/writer $(ROOT_DIR)/cpp/thread $(ROOT_DIR)/cpp/waitable_queue $(ROOT_DIR)/cpp/loggerST $(ROOT_DIR)/projects/minion_project/fd_listener $(ROOT_DIR)/projects/minion_project/action $(ROOT_DIR)/projects/minion_project/storage $(ROOT_DIR)/projects/minion_project/request $(ROOT_DIR)/projects/minion_project/response $(ROOT_DIR)/projects/minion_project/packet $(ROOT_DIR)/projects/minion_project/minion $(ROOT_DIR)/projects/minion_project/server $(ROOT_DIR)/projects/minion_project/request_handler $(ROOT_DIR)/projects/minion_project/ $(ROOT_DIR)/projects/minion_project/service_locator $(ROOT_DIR)/projects/minion_project/dl_loader $(ROOT_DIR)/projects/minion_project/shared_object $(ROOT_DIR)/cpp/factory $(ROOT_DIR)/projects/minion_project/reactor
 
 # the executable file
 PROJ_OUT = dir_monitor_test.out 
@@ -19,7 +19,7 @@ PROJ_CFLAGS =
 PROJ_MACROS =
 
 # additional object files (created by other projects)
-PROJ_ADD_OBJS = loggerMT_singleton.so reactor.obj fd_listener.obj dl_loader.obj shared_object.obj
+PROJ_ADD_OBJS = loggerST.so reactor.obj fd_listener.obj dl_loader.obj shared_object.obj
 
 # additional libraries
 PROJ_LIBS = pthread boost_system boost_thread boost_chrono dl

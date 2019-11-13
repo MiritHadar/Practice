@@ -1,3 +1,7 @@
 ../../../arch/linux64/obj/Debug/server.obj: server.cpp \
- ../../../system_programming/udp/server/server_udp.hpp \
- ../../../cpp/logging/logging.hpp server.hpp
+ ../../../cpp/loggerMT/loggerMT.hpp \
+ ../../../cpp/uncopyable/uncopyable.hpp ../../../cpp/writer/writer.hpp \
+ ../../../cpp/thread/thread.hpp \
+ ../../../cpp/waitable_queue/waitable_queue.hpp \
+ ../../../cpp/loggerST/loggerST.hpp \
+ ../../../cpp/shared_ptr/shared_ptr.hpp server.hpp

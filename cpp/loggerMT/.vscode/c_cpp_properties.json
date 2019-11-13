@@ -10,16 +10,14 @@
             },
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
-            "cStandard": "c11",
-            "cppStandard": "c++11",
+            "cStandard": "c89",
+            "cppStandard": "c++98",
             "intelliSenseMode": "${default}",
             "includePath": [
-                "../logMsg",
-                "../thread",
-                "../waitable_queue",
-                "../uncopyable",
-                "../writer",
-                "/home/student/Desktop/git/cpp/logMsg"
+				"${workspaceFolder}/",
+				"${workspaceFolder}/../uncopyable/",
+				"${workspaceFolder}/../writer/",
+				"${workspaceFolder}/../thread/"
             ]
         }
     ],

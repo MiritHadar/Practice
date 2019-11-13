@@ -7,7 +7,7 @@ ROOT_DIR = ../..
 PROJ_SRCS = loggerST.cpp loggerST_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = ../uncopyable ../loggerMT ../logMsg ../thread ../waitable_queue ../writer ../shared_ptr
+PROJ_INC_DIR = ../uncopyable ../loggerMT ../thread ../waitable_queue ../writer ../shared_ptr
 
 # the executable file
 PROJ_OUT = loggerST_test.out

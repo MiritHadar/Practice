@@ -8,7 +8,7 @@ ROOT_DIR = ../../..
 PROJ_SRCS = dl_loader.cpp dl_loader_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/projects/minion_project/shared_object $(ROOT_DIR)/projects/minion_project/ $(ROOT_DIR)/cpp/sharedPtr
+PROJ_INC_DIR = $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/projects/minion_project/shared_object $(ROOT_DIR)/projects/minion_project/ $(ROOT_DIR)/cpp/shared_ptr
 
 # the executable file
 PROJ_OUT = dl_loader_test.out
@@ -19,7 +19,7 @@ PROJ_CFLAGS =
 PROJ_MACROS =
 
 # additional object files (created by other projects)
-PROJ_ADD_OBJS = shared_object.obj loggerMT_singleton.so
+PROJ_ADD_OBJS = shared_object.obj loggerST.so
 
 # additional libraries
 PROJ_LIBS = pthread boost_system boost_thread boost_chrono dl

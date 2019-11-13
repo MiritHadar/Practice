@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* author: 		Ori Michaeli											  	  */
+/* author: 		Mirit Hadar											  	  */
 /* Reviewer: 					       										  */
 /* version: 	Draft			  		                                      */
 /* Last update: 23-10-2019					                                  */
@@ -9,7 +9,7 @@
 
 #include "reactor.hpp"			//	Header file	
 
-#include "loggerMT_singleton.hpp"
+#include "loggerST.hpp"
 
 
 namespace ilrd

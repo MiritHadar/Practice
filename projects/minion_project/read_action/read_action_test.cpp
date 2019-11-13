@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* author: 		Ori Michaeli											  	  */
+/* author: 		Mirit Hadar											  	  */
 /* Reviewer: 					       										  */
 /* version: 	Draft			  		                                      */
 /* Last update: 07-10-2019					                                  */
@@ -8,7 +8,7 @@
 #include <iostream>					//	cout
 #include <cstring>					//	memset
 #include <dlfcn.h>					//	dlsym, dlopen, dlclose
-#include "sharedPtr.hpp"
+#include "shared_ptr.hpp"
 #include "action.hpp"
 
 // #include "read_action.hpp"			//	Header file

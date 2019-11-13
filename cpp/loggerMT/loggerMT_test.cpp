@@ -1,48 +1,34 @@
-/*
-********************************************************************************
+/******************************************************************************/
+/* author: 		Mirit Hadar											  	  */
+/* Reviewer: 					       										  */
+/* version: 	Draft			  		                                      */
+/* Last update: 24-09-2019					                                  */
+/******************************************************************************/
 
-Developer : Mirit Hadar
-Reviewer :
-Last Update : 
-Status :
-
-********************************************************************************
-*/
-#include <string>
 #include <iostream>
-#include <fstream>     
+#include <fstream>
+#include <boost/thread.hpp>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "loggerMT.hpp"
 
-using namespace std;
 using namespace ilrd;
 using namespace boost;
 
+/***************************| Function declares |******************************/
+
 void PrintFast(LoggerMT *logger_, int number_);
-void FileTest();
-void SingleThread();
+
+/*****************************| main function |********************************/
 
 int main()
 {
-	//SingleThread();
-	FileTest();
-
-	return 0;
-}
-
-void SingleThread()
-{
-	LoggerMT myLogger(cout, ERROR);
-	myLogger.Log("run a msg", ERROR);
-	sleep(1);
-	myLogger.SetOutput(cerr);
-	myLogger.SetSeverity(WARNING);
-}
-
-void FileTest()
-{
 	LoggerMT test_logger;
 
-	test_logger.SetSeverity(SDEBUG);
+	test_logger.SetOutputSeverity(LoggerMT::SDEBUG);
 
 	std::ofstream test_log_file;
 
@@ -57,9 +43,11 @@ void FileTest()
 		print_fast.detach();
 	}
 
-	sleep(1);
+	sleep(1); // TODO : lower
 
 	test_log_file.close();
+
+	return 0;
 }
 
 /******************************************************************************/
@@ -76,11 +64,8 @@ void PrintFast(LoggerMT *logger_, int number_)
 
 		num_as_char[bytes_written] = '\n';
 
-		(logger_)->Log(num_as_char, ERROR);
+		(logger_)->Log(LoggerMT::ERROR, num_as_char);
 	}
 
 	delete num_as_char;
 }
-
-
-

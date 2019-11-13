@@ -8,7 +8,7 @@ ROOT_DIR = ../../..
 PROJ_SRCS = read_action_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = $(ROOT_DIR)/projects/minion_project/action $(ROOT_DIR)/projects/minion_project/storage $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/sharedPtr $(ROOT_DIR)/projects/minion_project/request $(ROOT_DIR)/projects/minion_project/response $(ROOT_DIR)/projects/minion_project/packet $(ROOT_DIR)/cpp/loggerMT $(ROOT_DIR)/cpp/loggerMT_singleton $(ROOT_DIR)/cpp/writer $(ROOT_DIR)/cpp/thread $(ROOT_DIR)/cpp/waitableQueue
+PROJ_INC_DIR = $(ROOT_DIR)/projects/minion_project/action $(ROOT_DIR)/projects/minion_project/storage $(ROOT_DIR)/cpp/uncopyable $(ROOT_DIR)/cpp/shared_ptr $(ROOT_DIR)/projects/minion_project/request $(ROOT_DIR)/projects/minion_project/response $(ROOT_DIR)/projects/minion_project/packet $(ROOT_DIR)/cpp/loggerMT $(ROOT_DIR)/cpp/loggerMT_singleton $(ROOT_DIR)/cpp/writer $(ROOT_DIR)/cpp/thread $(ROOT_DIR)/cpp/waitableQueue
 
 # the executable file
 PROJ_OUT = read_action_test.out
