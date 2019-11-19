@@ -32,11 +32,6 @@ int EvenOdd (int srcNum)
     }
 
     return stoi(destStr);
-    // int result = 0;
-    // std::stringstream ss(destStr);
-    // ss >> result;
-
-    // return result;
 }
 
 size_t CountDigits(int srcNum)
