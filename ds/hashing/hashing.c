@@ -16,7 +16,6 @@ struct hash_table
     size_t table_size;
 };
 
-
 static int IsMatchRapper(const void *data1, const void *data2, void *hash);
 
 hash_t *HashCreate(size_t table_size, hash_func_t hash_func, is_match_t match_func)

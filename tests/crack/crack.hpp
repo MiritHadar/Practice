@@ -20,8 +20,11 @@ namespace mirit
 
 bool IsAllStrUnique(const char *str);
 bool IsAllStrUniqueNoDs(string str);
-void ReplaceSpaces(string str);
-void RemoveSpaces(string str);
+void ReplaceSpaces(string &str);
+void RemoveSpaces(string &str);
+bool IsPolindrome(string str);
+void RemoveSpacesInplace(string &str);
+int Fibonacci(int n);
 
 size_t HowManyCharsInStr(const char* str);
 

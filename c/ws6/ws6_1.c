@@ -11,7 +11,6 @@
 #define NIBBLE 8
 
 
-
 long Pow2(unsigned int x, int y)
 {
 	long result = 0;
@@ -34,17 +33,16 @@ int IsPowerOf2(unsigned int n)
 	int bit_counter = 0;			/*counting 1's*/
 
 	if (n == 0)						/*if n is 1 - return false*/
-		{
-			return 0;
-		}
+	{
+		return 0;
+	}
 
 	while ((bit_counter < 2) && (n != 0))	  /*check while no more then*/
 	{										  /*  a single 1 was found  */
-		
-			if (1 == (n & 1))
-			{
-				++bit_counter;
-			}
+		if (1 == (n & 1))
+		{
+			++bit_counter;
+		}
 		n = n >> 1;				/*shift bits to the right*/
 	}
 	

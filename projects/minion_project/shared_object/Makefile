@@ -31,7 +31,7 @@ PROJ_LIBS_DIR = .
 PROJ_LDFLAGS =
 
 # list of projects (makefiles) this project depends on
-PROJ_DEPENDS  =
+PROJ_DEPENDS  = 
 
 include $(ROOT_DIR)/Make/Project.mak
 

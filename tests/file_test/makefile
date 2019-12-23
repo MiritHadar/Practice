@@ -4,30 +4,30 @@
 ROOT_DIR = ../..
 
 #PROJ_SRCS = $(shell xmlstarlet select -t -v //Unit/@filename xx.cbp | grep -e '\.c')
-PROJ_SRCS = loggerST.cpp loggerST_test.cpp
+PROJ_SRCS = file_test.cpp file_test_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = ../uncopyable ../loggerMT ../thread ../waitable_queue ../writer ../shared_ptr
+PROJ_INC_DIR =
 
 # the executable file
-PROJ_OUT = loggerST_test.out
+PROJ_OUT = file_test_test.out
 
 # list of compiler flags (prepended with "-" sign)
 PROJ_CFLAGS = -Wunused-but-set-variable -std=c++98
 
-PROJ_MACROS = 
+PROJ_MACROS =
 
 # additional object files (created by other projects)
-PROJ_ADD_OBJS = loggerMT.obj thread.obj writer.obj
+PROJ_ADD_OBJS =
 
 # additional libraries
-PROJ_LIBS = boost_system boost_thread boost_chrono dl
+PROJ_LIBS =
 
 # linker flags
-PROJ_LDFLAGS = -pthread
+PROJ_LDFLAGS =
 
 # list of projects (makefiles) this project depends on
-PROJ_DEPENDS  = ../loggerMT/makefile ../thread/makefile ../waitable_queue/makefile ../writer/makefile
+PROJ_DEPENDS  =
 
 include $(ROOT_DIR)/Make/Project.mak
 

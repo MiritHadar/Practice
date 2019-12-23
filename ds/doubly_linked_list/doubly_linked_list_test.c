@@ -22,6 +22,7 @@
 
 static int CmpInts(const void *data, const void *to_compare, void *param);
 static int AddToInts(void *data, void *param);
+static void RemoveDupTest();
 
 int main()
 {
@@ -199,8 +200,41 @@ int main()
 	
 	DLLDestroy(dlist);
 	DLLDestroy(dlist1);
-	
+
+	RemoveDupTest();
+
 	return 0;
+}
+
+static void RemoveDupTest()
+{
+	dlist_t *dlist = DLLCreate();
+	
+	int data0 = 0;
+    int data1 = 1;
+    int data2 = 2;
+    int data3 = 3;
+/*     int data4 = 4;
+ */    int data5 = 5;
+    int data6 = 6;
+    
+	DLLPushBack(dlist, &data0);
+	DLLPushBack(dlist, &data1);
+	DLLPushBack(dlist, &data2);
+	DLLPushBack(dlist, &data1);
+	DLLPushBack(dlist, &data3);
+	DLLPushBack(dlist, &data3);
+	DLLPushBack(dlist, &data5);
+	DLLPushBack(dlist, &data6);
+	DLLPushBack(dlist, &data0);
+	DLLPushBack(dlist, &data0);
+	DLLPushBack(dlist, &data0);
+
+	PrintDList(dlist);
+
+	RemoveDup(dlist);
+
+	PrintDList(dlist);
 }
 
 static int CmpInts(const void *data, const void *to_compare, void *param)

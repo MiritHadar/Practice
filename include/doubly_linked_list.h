@@ -78,6 +78,8 @@ void DLLSplice(dlist_itr_t where, dlist_itr_t from, dlist_itr_t to);
 /*Prints Dlist for DBUG*/
 void PrintDList(dlist_t *dlist);
 
+void RemoveDup(dlist_t *dlist);
+
 #endif	/*	OL67_DOUBLY_LINKED_LIST	*/
 
 

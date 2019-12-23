@@ -13,7 +13,7 @@
 
 #include "fd_listener.hpp"	//	Header file	
 #include "loggerMT.hpp"
-#include "loggerMT_singleton.hpp"
+#include "loggerST.hpp"
 
 namespace ilrd
 {

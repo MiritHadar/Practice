@@ -19,7 +19,7 @@ PROJ_CFLAGS =
 PROJ_MACROS =
 
 # additional object files (created by other projects)
-PROJ_ADD_OBJS = server.obj request_handler.obj storage.obj action.obj request.obj response.obj packet.obj fd_listener.obj reactor.obj loggerMT_singleton.so dir_monitor.obj dl_loader.obj shared_object.obj
+PROJ_ADD_OBJS = server.obj request_handler.obj storage.obj action.obj request.obj response.obj packet.obj fd_listener.obj reactor.obj loggerST.so dir_monitor.obj dl_loader.obj shared_object.obj
 
 # additional libraries
 PROJ_LIBS = dl pthread boost_system boost_thread boost_chrono
@@ -31,7 +31,7 @@ PROJ_LIBS_DIR = .
 PROJ_LDFLAGS =
 
 # list of projects (makefiles) this project depends on
-PROJ_DEPENDS  = $(ROOT_DIR)/projects/minion_project/server/Makefile $(ROOT_DIR)/projects/minion_project/request_handler/Makefile $(ROOT_DIR)/projects/minion_project/storage/Makefile $(ROOT_DIR)/projects/minion_project/action/Makefile $(ROOT_DIR)/projects/minion_project/request/Makefile $(ROOT_DIR)/projects/minion_project/response/Makefile $(ROOT_DIR)/projects/minion_project/packet/Makefile $(ROOT_DIR)/projects/minion_project/reactor/Makefile $(ROOT_DIR)/projects/minion_project/dir_monitor/Makefile $(ROOT_DIR)/cpp/logMsg/makefile $(ROOT_DIR)/cpp/writer/makefile
+PROJ_DEPENDS  = $(ROOT_DIR)/projects/minion_project/server/Makefile $(ROOT_DIR)/projects/minion_project/request_handler/Makefile $(ROOT_DIR)/projects/minion_project/storage/Makefile $(ROOT_DIR)/projects/minion_project/action/Makefile $(ROOT_DIR)/projects/minion_project/request/Makefile $(ROOT_DIR)/projects/minion_project/response/Makefile $(ROOT_DIR)/projects/minion_project/packet/Makefile $(ROOT_DIR)/projects/minion_project/reactor/Makefile $(ROOT_DIR)/projects/minion_project/dir_monitor/Makefile #$(ROOT_DIR)/cpp/logMsg/makefile $(ROOT_DIR)/cpp/writer/makefile
 
 include $(ROOT_DIR)/Make/Project.mak
 

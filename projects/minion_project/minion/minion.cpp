@@ -10,7 +10,7 @@
 #include <dlfcn.h>
 
 #include "minion.hpp"				//	Header file	
-#include "loggerMT_singleton.hpp"
+#include "loggerST.hpp"
 
 static const uint32_t READ_OR_WRITE_FLAG = 1;
 static const uint32_t UID = 8;

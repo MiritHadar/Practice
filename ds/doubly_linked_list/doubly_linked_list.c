@@ -275,8 +275,6 @@ dlist_itr_t DLLErase(dlist_itr_t who)
     
     return next_who;
 }
- 
-	
 
 /***********************************Find***************************************/
 dlist_itr_t DLLFind(const void *to_compare, dlist_itr_t from, dlist_itr_t to,
@@ -350,6 +348,36 @@ void DLLSplice(dlist_itr_t where, dlist_itr_t from, dlist_itr_t to)
    
 }
 
+
+void RemoveDup(dlist_t *dlist)
+{
+    dlist_itr_t head = NULL;
+    dlist_itr_t runner = NULL;
+
+    assert(dlist);
+
+    head = DLLBegin(dlist);
+
+    while (head != DLLPrev(DLLEnd(dlist)) && head != DLLEnd(dlist))
+    {
+        runner = DLLNext(head);
+        while (runner != DLLEnd(dlist))
+        {
+            if (DLLGetData(head) == DLLGetData(runner))
+            {
+                head = head->next;
+                DLLErase(DLLPrev(head));
+                runner = head->next;
+            }
+            else
+            {
+                runner = runner->next;
+            }
+        }
+        head = head->next;
+    }
+}
+
 /****************************Print DList Debug*********************************/
 #ifndef NDEBUG
 void PrintDList(dlist_t *dlist)
@@ -366,6 +394,8 @@ void PrintDList(dlist_t *dlist)
 
 	puts("");
 }
+
+
 #endif
 
 

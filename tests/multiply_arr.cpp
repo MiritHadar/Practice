@@ -21,6 +21,10 @@ int main()
     {
         std::cout << destArrBetter[i] << std::endl;
     }
+
+    delete[] destArr;
+    delete[] destArrBetter;
+
     return 0;
 }
 
@@ -71,5 +75,7 @@ int *MultAllNumsButMeBetter(int *srcArr, size_t n)
         right[i] *= left[i];
     }
 
+    delete[] left;
+    
     return right;
 }

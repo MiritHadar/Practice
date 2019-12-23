@@ -1,0 +1,2 @@
+g++ -g3 -shared -o loggerST.so -fPIC loggerST.cpp ../loggerMT/loggerMT.cpp ../thread/thread.cpp -I ../waitable_queue -I ../writer -I ../loggerMT -I ../thread -I ../uncopyable -I ../shared_ptr -lpthread -lboost_system -lboost_thread -lboost_chrono
+

@@ -227,7 +227,7 @@ int SLLHasLoop(const slist_node_t *head)
 	/*for a list of a single node looped to it self return true*/
 	if (head->next == head)
 	{
-	    return 0;
+	    return 1;
 	}
 	
 	slower = head;
