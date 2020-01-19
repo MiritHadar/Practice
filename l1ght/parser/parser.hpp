@@ -12,7 +12,8 @@
 #define noexcept throw()
 #endif
 
-#include <fstream>			// file stream
+#include <vector>      	    //  vector
+#include <fstream>			//  ifstream
 #include <stdexcept>		// 	runtime_error
 #include <dlfcn.h>			//	dlerror
 #include <cerrno>			//	errno
@@ -33,8 +34,10 @@ public:
 	~Parser() noexcept = default;
 
 	// Funcs
-	static void Parse(const char fileName_[]);
+	static std::vector<std::string> Parse(const char fileName_[]);
 	static std::string CopyFromFileToBuff(const char fileName_[]);
+	// in SplitStrIntoLines theres No RAII. User responsible for freeing vector allocated!!!
+	static std::vector<std::string> SplitStrIntoLines(std::string &str_);
 
 private:
 	static Stack<int> m_numbersStack;

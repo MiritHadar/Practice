@@ -25,6 +25,10 @@ int main()
 
 void FileTest()
 {
-	Parser::Parse(myFile);
-	//Parser::Parse(wrongFile);
+	vector<string> vec = Parser::Parse(myFile);
+	for (vector<string>::iterator it = vec.begin(); it != vec.end(); ++it)
+	{
+		cout << ' ' << *it << endl;
+	}
+    //Parser::Parse(wrongFile);
 }

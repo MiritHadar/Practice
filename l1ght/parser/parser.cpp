@@ -4,34 +4,38 @@
 /* Last update: 					                                          */
 /******************************************************************************/
 
-#include <vector>       // vector
-#include <sstream>      // std::stringstream
-#include <iostream>
-#include "parser.hpp"   // Header file
+#include <sstream>      // stringstream
+#include <iostream>     // cout
+#include "parser.hpp"   // header file
 
 namespace l1ght
 {
 
 using namespace std;
 
-void Parser::Parse(const char fileName_[])
+vector<string> Parser::Parse(const char fileName_[])
 {
-    CopyFromFileToBuff(fileName_);
-    // string buff = "one zero + seven eight";
-    // string delimiter = " ";
-    // size_t pos = 0;
-    // std::string token;
-    // while ((pos = buff.find(delimiter)) != string::npos)
-    // {
-    //     token = buff.substr(0, pos);
-    //     std::cout << token << std::endl;
-    //     // check if itts a num or operator
-    //     // push it in the right stack
-    //     buff.erase(0, pos + delimiter.length());
-    // }
-    // cout << "my buff: ";
-    // cout << buff << endl;
+    string strFromFile = CopyFromFileToBuff(fileName_);
+    vector<string> vec = SplitStrIntoLines(strFromFile);
 
+    return vec;
+}
+
+vector<string> Parser::SplitStrIntoLines(string &str_)
+{
+    stringstream stream;
+    stream << str_;
+    string line;
+    vector <string> vec; // No RAII. User responsible for freeing!!!
+
+    do
+    {
+        getline(stream, line);
+        cout << "!" << line << endl;
+        vec.push_back(line);
+    } while (!stream.eof());
+    
+    return vec;
 }
 
 string Parser::CopyFromFileToBuff(const char fileName_[])
@@ -43,9 +47,11 @@ string Parser::CopyFromFileToBuff(const char fileName_[])
 
     string str;
     str = buff.str();
-    cout << str;
+    //cout << str;
 
     myFile.close();
+
+    return str;
 }
 
 FileDoesntOpen::FileDoesntOpen(const std::string &what_)
