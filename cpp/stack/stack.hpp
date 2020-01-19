@@ -2,15 +2,14 @@
 ********************************************************************************
 
 Developer : Mirit Hadar
-Reviewer :
+Status : Final
 Last Update : 
-Status :
 
 ********************************************************************************
 */
 
-#ifndef __OL67_stack
-#define __OL67_stack
+#ifndef __OL67_STACK
+#define __OL67_STACK
 
 #include <cstddef>  /*size_t*/
 #include "../utils/detail.hpp"
@@ -139,7 +138,7 @@ bool Stack<T>::IsEmpty() const
     return !m_dummy.HasNext();
 }
 
-#endif /* __OL67_stack */
+#endif /* __OL67_STACK */
 
 
  
