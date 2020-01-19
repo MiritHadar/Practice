@@ -1,2 +1,2 @@
-../../arch/linux64/obj/Debug/stack_test.o: stack_test.c \
- ../../include/stack.h
+../../arch/linux64/obj/Debug/stack_test.obj: stack_test.cpp stack.hpp \
+ ../utils/detail.hpp ../str/str.hpp

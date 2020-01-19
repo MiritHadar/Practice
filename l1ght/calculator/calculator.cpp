@@ -4,15 +4,21 @@
 /* Last update: 							                                  */
 /******************************************************************************/
 
-#include <iostream>				//	cout 	
+// #include <sstream>          // stringstream
+#include <iostream>         // cout
+#include "calculator.hpp"   // header file
 
-#include "calculator.hpp"		//	Header file		
-
-using namespace std;
-using namespace l1ght;
-
-int main()
+namespace l1ght
 {
 
-	return 0;
+using namespace std;
+
+vector<double> Calculate(const char fileName_[])
+{
+    // parser
+    // sort between Stacks
+    // Execute
 }
+
+
+}//namespace l1ght

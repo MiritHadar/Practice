@@ -4,7 +4,7 @@
 ROOT_DIR = ../..
 
 #PROJ_SRCS = $(shell xmlstarlet select -t -v //Unit/@filename xx.cbp | grep -e '\.c')
-PROJ_SRCS = stack.cpp stack_test.cpp
+PROJ_SRCS = stack_test.cpp
 
 # list of directories containing header files
 PROJ_INC_DIR = ../str

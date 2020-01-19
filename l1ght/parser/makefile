@@ -22,7 +22,7 @@ PROJ_MACROS =
 PROJ_ADD_OBJS = 
 
 # additional libraries
-PROJ_LIBS = boost_system
+PROJ_LIBS = 
 
 LIB_FLAG  = 0
 PROJ_LIBS_DIR = .

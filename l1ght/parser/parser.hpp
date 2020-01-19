@@ -40,8 +40,7 @@ public:
 	static std::vector<std::string> SplitStrIntoLines(std::string &str_);
 
 private:
-	static Stack<int> m_numbersStack;
-	static Stack<char> m_operatorsStack;
+	
 };
 
 class FileDoesntOpen : public std::runtime_error

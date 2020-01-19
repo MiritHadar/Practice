@@ -5,24 +5,24 @@
 ROOT_DIR = ../..
 
 #PROJ_SRCS = $(shell xmlstarlet select -t -v //Unit/@filename xx.cbp | grep -e '\.c')
-PROJ_SRCS = writer_test.cpp
+PROJ_SRCS = calculator_test.cpp calculator.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = $(ROOT_DIR)/cpp/waitable_queue $(ROOT_DIR)/cpp/thread $(ROOT_DIR)/cpp/uncopyable 
+PROJ_INC_DIR = ../uncopyable ../stack ../parser
 
 # the executable file
-PROJ_OUT = writer_test.out
+PROJ_OUT = calculator_test.out
 
 # list of compiler flags (prepended with "-" sign)
-PROJ_CFLAGS = 
+PROJ_CFLAGS = -std=c++11
 
 PROJ_MACROS =
 
 # additional object files (created by other projects)
-PROJ_ADD_OBJS = thread.obj 
+PROJ_ADD_OBJS = parser.obj
 
 # additional libraries
-PROJ_LIBS = pthread boost_system boost_thread boost_chrono
+PROJ_LIBS = 
 
 LIB_FLAG  = 0
 PROJ_LIBS_DIR = .
@@ -31,7 +31,7 @@ PROJ_LIBS_DIR = .
 PROJ_LDFLAGS =
 
 # list of projects (makefiles) this project depends on
-PROJ_DEPENDS  = $(ROOT_DIR)/cpp/thread/makefile 
+PROJ_DEPENDS  = ../parser/makefile
 
 include $(ROOT_DIR)/Make/Project.mak
 
