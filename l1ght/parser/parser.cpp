@@ -25,9 +25,11 @@ void Parser::Parse(const char fileName_[])
     {
         token = buff.substr(0, pos);
         std::cout << token << std::endl;
+        //check if itts a num or operator
+        //push it in the right stack
         buff.erase(0, pos + delimiter.length());
     }
-    
+    cout << "my buff: ";
     cout << buff << endl;
 
 }
