@@ -12,8 +12,6 @@
 #define noexcept throw()
 #endif
 
-#include <iostream>			//	ostream
-#include <exception>		// exceptions
 #include <fstream>			// file stream
 #include <stdexcept>		// 	runtime_error
 #include <dlfcn.h>			//	dlerror
@@ -21,23 +19,26 @@
 #include <cstring>			//	strerror
 
 #include "uncopyable.hpp"	// For inaccessible CCtor and assign operator
+#include "stack.hpp"		// My Stack
 
 namespace l1ght
 {
 
 class Parser : private Uncopyable
 {
+
 public:
-	explicit Parser() = delete;
-	static void Parse(const char fileName_[]);
+	// Ctors (CCtors Blocked)
+	//explicit Parser();
 	~Parser() noexcept = default;
 
+	// Funcs
+	static void Parse(const char fileName_[]);
+	static std::string CopyFromFileToBuff(const char fileName_[]);
+
 private:
-	class ParserHelper
-	{
-		void OperFile();
-		void TranselateToNums();
-	};
+	static Stack<int> m_numbersStack;
+	static Stack<char> m_operatorsStack;
 };
 
 class FileDoesntOpen : public std::runtime_error
@@ -47,7 +48,6 @@ public:
 private:
 
 };
-
 
 } // namespace l1ght
 

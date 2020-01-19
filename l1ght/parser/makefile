@@ -8,7 +8,7 @@ ROOT_DIR = ../..
 PROJ_SRCS = parser.cpp parser_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = ../uncopyable
+PROJ_INC_DIR = ../uncopyable ../stack
 
 # the executable file
 PROJ_OUT = parser_test.out
@@ -22,7 +22,7 @@ PROJ_MACROS =
 PROJ_ADD_OBJS = 
 
 # additional libraries
-PROJ_LIBS = 
+PROJ_LIBS = boost_system
 
 LIB_FLAG  = 0
 PROJ_LIBS_DIR = .

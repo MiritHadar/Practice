@@ -14,7 +14,8 @@
             "cppStandard": "c++11",
             "intelliSenseMode": "${default}",
             "includePath": [
-                "../uncopyable"
+                "../uncopyable",
+                "/home/mirit/Desktop/Practice/cpp/stack"
             ]
         }
     ],

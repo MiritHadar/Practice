@@ -26,7 +26,5 @@ int main()
 void FileTest()
 {
 	Parser::Parse(myFile);
-	Parser::Parse(wrongFile);
-
-	//cout << "FileTest" << endl;
+	//Parser::Parse(wrongFile);
 }

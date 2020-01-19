@@ -4,7 +4,9 @@
 /* Last update: 					                                          */
 /******************************************************************************/
 
-
+#include <vector>       // vector
+#include <sstream>      // std::stringstream
+#include <iostream>
 #include "parser.hpp"   // Header file
 
 namespace l1ght
@@ -12,44 +14,51 @@ namespace l1ght
 
 using namespace std;
 
+void Parser::Parse(const char fileName_[])
+{
+    //CopyFromFileToBuff(fileName_);
+    string buff = "one zero + seven eight";
+    string delimiter = " ";
+    size_t pos = 0;
+    std::string token;
+    while ((pos = buff.find(delimiter)) != string::npos)
+    {
+        token = buff.substr(0, pos);
+        std::cout << token << std::endl;
+        buff.erase(0, pos + delimiter.length());
+    }
+    
+    cout << buff << endl;
+
+}
+
+string Parser::CopyFromFileToBuff(const char fileName_[])
+{
+    ifstream myfile(fileName_, ios::binary);
+
+    if (!(myfile.is_open()))
+    {
+        throw FileDoesntOpen(std::string("Unable to open file") +
+                                            std::string(strerror(errno)));
+    }
+    string buff;
+
+    // char *token = strtok(ss, " ");
+    // while(nullptr != token)
+    // {
+    //     cout << token << endl;
+    //     token = strtok(nullptr," ");
+    // }
+
+    myfile.close();
+
+    return buff;
+}
+
 FileDoesntOpen::FileDoesntOpen(const std::string &what_)
         : runtime_error(what_)
 {
     ;
 }
-
-void Parser::Parse(const char fileName_[])
-{
-    // std::ofstream fp(fileName_);
-    // fp.open(fileName_);
-
-    // if (!(fp.is_open()))
-    // {
-    //     throw FileDoesntOpen(std::string("The file you mentioned failed to open") +
-    //                          std::string(strerror(errno)));
-    // } 
-
-    // string line;
-    // fp.getline(line);
-
-    string line;
-    ifstream myfile(fileName_, ios::in);
-    if (myfile.is_open())
-    {
-        while (getline (myfile,line))
-        {
-            cout << line << endl;
-        }
-
-        myfile.close();
-    }
-
-    else
-    {
-         throw FileDoesntOpen(std::string("Unable to open file") +
-                                            std::string(strerror(errno)));
-    }
-}
-
 
 }//namespace l1ght
