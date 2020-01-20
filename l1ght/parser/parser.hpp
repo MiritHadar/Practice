@@ -18,6 +18,7 @@
 #include <dlfcn.h>			//	dlerror
 #include <cerrno>			//	errno
 #include <cstring>			//	strerror
+#include <memory>           // shared_ptr
 
 #include "uncopyable.hpp"	// For inaccessible CCtor and assign operator
 #include "stack.hpp"		// My Stack

@@ -18,6 +18,8 @@
 #include <dlfcn.h>			//	dlerror
 #include <cerrno>			//	errno
 #include <cstring>			//	strerror
+#include <sstream>          // stringstream
+
 
 #include "uncopyable.hpp"	// For inaccessible CCtor and assign operator
 #include "stack.hpp"		// My Stack
@@ -30,24 +32,18 @@ class Calculator : private Uncopyable
 {
 
 public:
-	// Ctors (CCtors Blocked)
+	// Ctor
+	Calculator();
 	
 	// Funcs
-	std::vector<double> Calculate(const char fileName_[]);
-	void SortBetweenStacks();
-	void Execute();
+	static std::vector<double> Calculate(const char fileName_[]);
+	static void SortBetweenStacks(std::string arithmetic_);
+	static double Execute();
+	static int ConvertToNum(std::string::const_iterator it);
 	
 private:
 	static Stack<int> m_numbersStack;
-	//static Stack<char> m_operatorsStack;
-};
-
-class FileDoesntOpen : public std::runtime_error
-{
-public:
-	explicit FileDoesntOpen(const std::string &errorString_ = "");
-private:
-
+	static Stack<char> m_operatorsStack;
 };
 
 } // namespace l1ght
