@@ -18,17 +18,17 @@ using namespace std;
 class Handler : private Uncopyable
 {
 public:
-	static void AddHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string::const_iterator it);
-	static void NumHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string::const_iterator it);
-    static void SpaceHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string::const_iterator it);
-    static void EndHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string::const_iterator it);
+	static void AddHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t i);
+	static void NumHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t i);
+    static void SpaceHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t i);
+    static void EndHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t i);
 };
 
 // Act Funcs
 class Executer : public Uncopyable
 {
 public:
-	static void AddExecute(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string::const_iterator it);
+	static void AddExecute(Stack<int> &numbersStack_, Stack<char> &operatorsStack_);
 };
 
 static void PrintAndEmptyMyStacks(Stack<int> &nums_, Stack<char> &operators_);
@@ -37,11 +37,11 @@ static void InitMapsOfFuncs();
 //unordered_map<char*,int(*)()> g_mapOfFuncs; 
 typedef void (*hand_func)(Stack<int> &numbersStack_,
                           Stack<char> &operatorsStack_,
-                          string::const_iterator it);
+                          string &str_,
+                          size_t i);
 
 typedef void (*act_func)(Stack<int> &numbersStack_,
-                         Stack<char> &operatorsStack_,
-                         string::const_iterator it);
+                         Stack<char> &operatorsStack_);
 
 hand_func g_lut_handler[256];
 act_func g_lut_action[256];
@@ -140,13 +140,20 @@ vector<double> Calculator::Calculate(const char fileName_[])
 
 double Calculator::Execute(string str_)
 {
-    for (auto it = str_.cbegin(); it != str_.cend(); ++it)
-    {
-        cout << "sign: " << *const_cast<char*>(it.base()) << endl;
-        //PrintAndEmptyMyStacks(m_numbersStack, m_operatorsStack);
-        g_lut_handler[static_cast<unsigned char>(*const_cast<char*>(it.base()))](m_numbersStack, m_operatorsStack, it);
-    }
+    // for (auto it = str_.cbegin(); it != str_.cend(); ++it)
+    // {
+    //     cout << "sign: " << *const_cast<char*>(it.base()) << endl;
+    //     g_lut_handler[static_cast<unsigned char>(*const_cast<char*>(it.base()))](m_numbersStack, m_operatorsStack, it);
+    // }
 
+    size_t strLen = str_.length();
+    cout << "len = " << strLen;
+    size_t i = 0;
+    while (i < strLen)
+    {
+        g_lut_handler[str_[i]](m_numbersStack, m_operatorsStack, str_, i);
+    }
+    
     double result = m_numbersStack.Top();
     cout << "result = " << result << endl;
     PrintAndEmptyMyStacks(m_numbersStack, m_operatorsStack);
@@ -185,7 +192,7 @@ int Calculator::ConvertToNum(string::const_iterator it)
 }
 
 // Handle Funcs
-void Handler::AddHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string::const_iterator it)
+void Handler::AddHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t i)
 {
     while(!(operatorsStack_.IsEmpty()) && operatorsStack_.Top() != '(')
     {
@@ -197,12 +204,12 @@ void Handler::AddHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_,
 }
 
 // Act Funcs
-void Executer::AddExecute(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string::const_iterator it)
+void Executer::AddExecute(Stack<int> &numbersStack_, Stack<char> &operatorsStack_)
 {
 
 }
 
-void Handler::NumHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string::const_iterator it)
+void Handler::NumHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t i)
 {
     //jump to end of num
     int num = strtod(it.base(), nullptr);
@@ -210,12 +217,12 @@ void Handler::NumHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_,
     //++it;
 }
 
-void Handler::SpaceHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string::const_iterator it)
+void Handler::SpaceHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t i)
 {
     //++it;
 }
 
-void Handler::EndHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string::const_iterator it)
+void Handler::EndHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t i)
 {
     // while (!operatorsStack_.IsEmpty())
     // {
