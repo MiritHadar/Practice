@@ -12,18 +12,29 @@ using namespace std;
 using namespace l1ght;
 
 void BasicTest();
+void TmpTest();
 
 const char myFile[] = "test.txt";
+const char tmpFile[] = "tmp.txt";
 const char wrongFile[] = "wrong";
 
 int main()
 {
-	BasicTest();
+	//BasicTest();
+	TmpTest();
 
 	return 0;
 }
 
 void BasicTest()
 {
-	Calculator::Calculate(myFile);
+	Calculator calc;
+	calc.Calculate(myFile);
 }
+
+void TmpTest()
+{
+	Calculator calc;
+	calc.Calculate(tmpFile);
+}
+
