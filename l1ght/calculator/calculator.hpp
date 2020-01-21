@@ -40,14 +40,13 @@ public:
 
 private:
 	// Funcs
-	//static void SortBetweenStacks(std::string arithmetic_);
 	double Execute(std::string str_);
 	int ConvertToNum(std::string::const_iterator it);
 
 
 	// Data members
-	Stack<int> m_numbersStack;
-	Stack<char> m_operatorsStack;
+	/* static */ Stack<int> m_numbersStack;
+	/* static */ Stack<char> m_operatorsStack;
 };
 
 } // namespace l1ght

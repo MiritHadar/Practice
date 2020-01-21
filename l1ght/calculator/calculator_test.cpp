@@ -20,8 +20,8 @@ const char wrongFile[] = "wrong";
 
 int main()
 {
-	//BasicTest();
-	TmpTest();
+	BasicTest();
+	//TmpTest();
 
 	return 0;
 }
