@@ -41,13 +41,13 @@ public:
 private:
 	// Funcs
 	double Execute(std::string str_);
-	int ConvertToNum(std::string::const_iterator it);
+	//int ConvertStrIntoNum(std::string str_);
 
 	// Data members
 	//Stack<int> m_numbersStack;
 	//Stack<char> m_operatorsStack;
-	// static std::stack<int> m_numbersStack;
-	// static std::stack<char> m_operatorsStack;
+	static std::stack<int> m_numbersStack;
+	static std::stack<char> m_operatorsStack;
 };
 
 } // namespace l1ght

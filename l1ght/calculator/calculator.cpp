@@ -6,7 +6,7 @@
 
 #include <iostream>            // cout
 #include <unordered_map>       // map
-//#include <unistd.h>			   // sleep
+#include <unistd.h>			   // sleep
 #include "calculator.hpp"      // header file
 
 namespace l1ght
@@ -25,11 +25,11 @@ static stack<T> InitStack()
 // Stack<int> Calculator::m_numbersStack(InitStack<int>());
 // Stack<char> Calculator::m_operatorsStack(InitStack<char>());
 
-// stack<int> Calculator::m_numbersStack = InitStack<int>();
-// stack<char> Calculator::m_operatorsStack = InitStack<char>();
+stack<int> Calculator::m_numbersStack = InitStack<int>();
+stack<char> Calculator::m_operatorsStack = InitStack<char>();
 
-stack<int> m_numbersStack;
-stack<char> m_operatorsStack;
+// stack<int> m_numbersStack;
+// stack<char> m_operatorsStack;
 
 // Handle Func
 class Handler : private Uncopyable
@@ -50,7 +50,9 @@ public:
 
 static void PrintAndEmptyMyStacks(stack<int> &nums_, stack<char> &operators_);
 static void InitMaps();
- 
+int ConvertStrIntoNum(string str_);
+size_t FindNextSapcePos(string str_, size_t i);
+
 typedef void (*hand_func)(stack<int> &numbersStack_,
                           stack<char> &operatorsStack_,
                           string &str_,
@@ -65,9 +67,11 @@ unordered_map<string,int> g_mapOfNums;
 
 const unsigned char ZERO_ASCII = 48;
 const unsigned char NINE_ASCII = 57;
-const unsigned char OPENNING_BRACKET = 40;
-const unsigned char CLOSING_BRACKET = 41;
-const unsigned char OPERATORS_ASCII = 48;
+const unsigned char A_ASCII = 65;
+const unsigned char Z_ASCII = 90;
+//const unsigned char OPENNING_BRACKET = 40;
+//const unsigned char CLOSING_BRACKET = 41;
+//const unsigned char OPERATORS_ASCII = 48;
 const unsigned char SPACE_ASCII = 32;
 const size_t NUM_OF_ASCII_CHARS = 256;
 
@@ -75,13 +79,14 @@ Calculator::Calculator()
     // : m_numbersStack(InitStack<int>()),
     //   m_operatorsStack(InitStack<char>())
 {
-    m_numbersStack = InitStack<int>();
-    m_operatorsStack = InitStack<char>();
     InitMaps();
 }
 
 static void InitMaps()
 {
+    // m_numbersStack = InitStack<int>();
+    // m_operatorsStack = InitStack<char>();
+
     g_lut_handler['+'] = Handler::AddHandle;
     g_lut_action['+'] = Executer::AddExecute;
 
@@ -99,12 +104,21 @@ static void InitMaps()
     g_lut_handler[' '] = Handler::SpaceHandle;
     //g_lut_handler['\0'] = Handler::EndHandle;
 
-    for (size_t i = ZERO_ASCII; i <= NINE_ASCII; ++i)
+    for (size_t i = A_ASCII; i <= Z_ASCII; ++i)
     {
         g_lut_handler[i] = Handler::NumHandle;
     }
     
+    g_mapOfNums["Zer"] = 0;
     g_mapOfNums["One"] = 1;
+    g_mapOfNums["Two"] = 2;
+    g_mapOfNums["Thr"] = 3;
+    g_mapOfNums["Fou"] = 4;
+    g_mapOfNums["Fiv"] = 5;
+    g_mapOfNums["Six"] = 6;
+    g_mapOfNums["Sev"] = 7;
+    g_mapOfNums["Eig"] = 8;
+    g_mapOfNums["Nin"] = 9;
 }
 
 vector<double> Calculator::Calculate(const char fileName_[])
@@ -112,10 +126,15 @@ vector<double> Calculator::Calculate(const char fileName_[])
     vector<string> vecOfStrings = Parser::Parse(fileName_);
     vector<double> vecOfResults;
 
-    for (vector<string>::iterator it = vecOfStrings.begin(); it != vecOfStrings.end(); ++it)
+    for (vector<string>::iterator it = vecOfStrings.begin();
+        (it != vecOfStrings.end()) && !(static_cast<string>(*it).empty());
+                                                                     ++it)
     {
-        cout << "it: " << *it << endl;
+        //cout << "derefferncing......." << endl;
+        //cout << "it: " << *it << "  done *it" << endl;
         vecOfResults.push_back(Execute(*it));
+        
+        //cout << "done executing" << endl;
     }
 
     return vecOfResults;
@@ -123,22 +142,39 @@ vector<double> Calculator::Calculate(const char fileName_[])
 
 double Calculator::Execute(string str_)
 {
-    // for (auto it = str_.cbegin(); it != str_.cend(); ++it)
-    // {
-    //     cout << "sign: " << *const_cast<char*>(it.base()) << endl;
-    //     g_lut_handler[static_cast<unsigned char>(*const_cast<char*>(it.base()))](m_numbersStack, m_operatorsStack, it);
-    // }
-
     size_t lenStr = str_.length();
     size_t i = 0;
+
     while (i < lenStr)
     {
         g_lut_handler[static_cast<unsigned char>(str_[i])](m_numbersStack, m_operatorsStack, str_, i);
+        //cout << "int(str_[i]) = " << int(str_[i]) << endl;
+        //for nums
+        // if (int(str_[i]) >= A_ASCII && int(str_[i]) <= Z_ASCII)
+        // {
+        //     int num = ConvertStrIntoNum(str_.substr(i, 3));
+        //     cout << "num = " << num << endl;
+        //     g_lut_handler[num](m_numbersStack, m_operatorsStack, str_, i);
+        // }
+        // else
+        // {
+        //     //cout << static_cast<unsigned char>(str_[i]) << endl;
+        //     //g_lut_handler[static_cast<unsigned char>(str_[i])](m_numbersStack, m_operatorsStack, str_, i);
+        // }
+    }
+
+    while (!(m_operatorsStack.empty()))
+    {
+        g_lut_action[static_cast<unsigned char>(m_operatorsStack.top())](m_numbersStack, m_operatorsStack);
     }
     
+    // double result = m_numbersStack.top();
+    // cout << "result = " << result << endl;
+    // PrintAndEmptyMyStacks(m_numbersStack, m_operatorsStack);
+
     double result = m_numbersStack.top();
+    m_numbersStack.pop();
     cout << "result = " << result << endl;
-    PrintAndEmptyMyStacks(m_numbersStack, m_operatorsStack);
 
     return result;
 }
@@ -160,47 +196,50 @@ static void PrintAndEmptyMyStacks(stack<int> &nums_, stack<char> &operators_)
     }
 }
 
-// static void InitMaps()
-// {
-//     for (size_t i = 0; i < 256; ++i)
-//     {
-        
-//     }
-// }
-
-int Calculator::ConvertToNum(string::const_iterator it)
-{
-    return 0;
-}
-
 // Handle Funcs
 void Handler::AddHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     while(!(operatorsStack_.empty()) && operatorsStack_.top() != '(')
     {
-        g_lut_handler[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_, str_, i);
+        cout << "got + " << endl;
+        g_lut_action[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_);
     }
 
     operatorsStack_.push(str_[i]);
+
     ++i;
 }
 
 // Act Funcs
 void Executer::AddExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_)
 {
+    double result = numbersStack_.top();
+    numbersStack_.pop();
+    result = numbersStack_.top() + result;
+    numbersStack_.pop();
 
+    //cout << "AddExecute: result = " << result << endl;
+    // Push in the resault
+    numbersStack_.push(result);
+
+    // Pop out the used operator
+    operatorsStack_.pop();
 }
 
 void Handler::NumHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
-    //jump to end of num
-    //int num = strtod(&(str_[i]), nullptr);
-    size_t nextSpacePos = (str_.substr(i, str_.length())).find(' ', i);
-    cout << str_.substr(i, 3) << endl;
-    int num = g_mapOfNums[str_.substr(i, 3)];
-    cout << "num = " << num << endl;
+    size_t nextPos = FindNextSapcePos(str_, i);
+    //cout << nextPos << " just spaces: " << str_[nextPos] << endl;
+    int num = ConvertStrIntoNum(str_.substr(i, 3));
     numbersStack_.push(num);
-    i = nextSpacePos;
+
+    //check for brackets
+    if (str_[nextPos - 1] == ')')
+    {
+        --nextPos;
+    }
+
+    i = nextPos;
 }
 
 void Handler::SpaceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
@@ -215,6 +254,24 @@ void Handler::EndHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_,
     //     g_lut_action[static_cast<unsigned char>(operatorsStack_.Top())](numbersStack_, operatorsStack_, it);   
     // }
     cout << "end" << endl;
+}
+
+int ConvertStrIntoNum(string str_)
+{
+    //cout << "g_mapOfNums[str_] = " << g_mapOfNums[str_] << endl;
+
+    //sleep(1);
+
+    return g_mapOfNums[str_];
+}
+
+size_t FindNextSapcePos(string str_, size_t i)
+{
+    //cout << "substr: " << str_.substr(i, str_.length()) << endl;
+    size_t indexOfNextSpace = str_.find(' ', i);
+    //cout << "!!! " << indexOfNextSpace << " !!!";
+
+    return indexOfNextSpace;
 }
 
 
