@@ -19,7 +19,7 @@
 #include <cerrno>			//	errno
 #include <cstring>			//	strerror
 #include <sstream>          // stringstream
-
+#include <stack>			// stack	
 
 #include "uncopyable.hpp"	// For inaccessible CCtor and assign operator
 #include "stack.hpp"		// My Stack
@@ -43,10 +43,11 @@ private:
 	double Execute(std::string str_);
 	int ConvertToNum(std::string::const_iterator it);
 
-
 	// Data members
-	/* static */ Stack<int> m_numbersStack;
-	/* static */ Stack<char> m_operatorsStack;
+	//Stack<int> m_numbersStack;
+	//Stack<char> m_operatorsStack;
+	// static std::stack<int> m_numbersStack;
+	// static std::stack<char> m_operatorsStack;
 };
 
 } // namespace l1ght

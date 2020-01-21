@@ -15,43 +15,49 @@ namespace l1ght
 using namespace std;
 
 template <typename T>
-static Stack<T> InitStack()
+static stack<T> InitStack()
 {
-    Stack<T> stack;
+    stack<T> s;
 
-    return stack;
+    return s;
 }
 
 // Stack<int> Calculator::m_numbersStack(InitStack<int>());
 // Stack<char> Calculator::m_operatorsStack(InitStack<char>());
 
+// stack<int> Calculator::m_numbersStack = InitStack<int>();
+// stack<char> Calculator::m_operatorsStack = InitStack<char>();
+
+stack<int> m_numbersStack;
+stack<char> m_operatorsStack;
+
 // Handle Func
 class Handler : private Uncopyable
 {
 public:
-	static void AddHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t &i);
-	static void NumHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t &i);
-    static void SpaceHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t &i);
-    static void EndHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t &i);
+	static void AddHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+	static void NumHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void SpaceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void EndHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
 };
 
 // Act Funcs
 class Executer : public Uncopyable
 {
 public:
-	static void AddExecute(Stack<int> &numbersStack_, Stack<char> &operatorsStack_);
+	static void AddExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_);
 };
 
-static void PrintAndEmptyMyStacks(Stack<int> &nums_, Stack<char> &operators_);
+static void PrintAndEmptyMyStacks(stack<int> &nums_, stack<char> &operators_);
 static void InitMaps();
  
-typedef void (*hand_func)(Stack<int> &numbersStack_,
-                          Stack<char> &operatorsStack_,
+typedef void (*hand_func)(stack<int> &numbersStack_,
+                          stack<char> &operatorsStack_,
                           string &str_,
                           size_t &i);
 
-typedef void (*act_func)(Stack<int> &numbersStack_,
-                         Stack<char> &operatorsStack_);
+typedef void (*act_func)(stack<int> &numbersStack_,
+                         stack<char> &operatorsStack_);
 
 hand_func g_lut_handler[256];
 act_func g_lut_action[256];
@@ -66,15 +72,15 @@ const unsigned char SPACE_ASCII = 32;
 const size_t NUM_OF_ASCII_CHARS = 256;
 
 Calculator::Calculator()
-    : m_numbersStack(InitStack<int>()),
-      m_operatorsStack(InitStack<char>())
+    // : m_numbersStack(InitStack<int>()),
+    //   m_operatorsStack(InitStack<char>())
 {
-    //m_operatorsStack(Stack<char>())
+    m_numbersStack = InitStack<int>();
+    m_operatorsStack = InitStack<char>();
     InitMaps();
 }
 
 static void InitMaps()
-
 {
     g_lut_handler['+'] = Handler::AddHandle;
     g_lut_action['+'] = Executer::AddExecute;
@@ -130,27 +136,27 @@ double Calculator::Execute(string str_)
         g_lut_handler[static_cast<unsigned char>(str_[i])](m_numbersStack, m_operatorsStack, str_, i);
     }
     
-    double result = m_numbersStack.Top();
+    double result = m_numbersStack.top();
     cout << "result = " << result << endl;
     PrintAndEmptyMyStacks(m_numbersStack, m_operatorsStack);
 
     return result;
 }
 
-static void PrintAndEmptyMyStacks(Stack<int> &nums_, Stack<char> &operators_)
+static void PrintAndEmptyMyStacks(stack<int> &nums_, stack<char> &operators_)
 {
     cout << "numbers:" << endl;
-    while(!(nums_.IsEmpty()))
+    while(!(nums_.empty()))
     {
-        cout << nums_.Top() << endl;
-        nums_.Pop();
+        cout << nums_.top() << endl;
+        nums_.pop();
     }
 
     cout << "operators:" << endl;
-    while(!(operators_.IsEmpty()))
+    while(!(operators_.empty()))
     {
-        cout << operators_.Top() << endl;
-        operators_.Pop();
+        cout << operators_.top() << endl;
+        operators_.pop();
     }
 }
 
@@ -168,24 +174,24 @@ int Calculator::ConvertToNum(string::const_iterator it)
 }
 
 // Handle Funcs
-void Handler::AddHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::AddHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
-    while(!(operatorsStack_.IsEmpty()) && operatorsStack_.Top() != '(')
+    while(!(operatorsStack_.empty()) && operatorsStack_.top() != '(')
     {
-        g_lut_handler[static_cast<unsigned char>(operatorsStack_.Top())](numbersStack_, operatorsStack_, str_, i);
+        g_lut_handler[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_, str_, i);
     }
 
-    operatorsStack_.Push(str_[i]);
+    operatorsStack_.push(str_[i]);
     ++i;
 }
 
 // Act Funcs
-void Executer::AddExecute(Stack<int> &numbersStack_, Stack<char> &operatorsStack_)
+void Executer::AddExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_)
 {
 
 }
 
-void Handler::NumHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::NumHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     //jump to end of num
     //int num = strtod(&(str_[i]), nullptr);
@@ -193,16 +199,16 @@ void Handler::NumHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_,
     cout << str_.substr(i, 3) << endl;
     int num = g_mapOfNums[str_.substr(i, 3)];
     cout << "num = " << num << endl;
-    numbersStack_.Push(num);
+    numbersStack_.push(num);
     i = nextSpacePos;
 }
 
-void Handler::SpaceHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::SpaceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     ++i;
 }
 
-void Handler::EndHandle(Stack<int> &numbersStack_, Stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::EndHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     // while (!operatorsStack_.IsEmpty())
     // {
