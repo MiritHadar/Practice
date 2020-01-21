@@ -1,1 +1,2 @@
-One + Two + Three + Nine + Zero + Four + One
+Two - One
+Three + Four + Five - Nine

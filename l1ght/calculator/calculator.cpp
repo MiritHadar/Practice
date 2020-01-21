@@ -22,14 +22,8 @@ static stack<T> InitStack()
     return s;
 }
 
-// Stack<int> Calculator::m_numbersStack(InitStack<int>());
-// Stack<char> Calculator::m_operatorsStack(InitStack<char>());
-
 stack<int> Calculator::m_numbersStack = InitStack<int>();
 stack<char> Calculator::m_operatorsStack = InitStack<char>();
-
-// stack<int> m_numbersStack;
-// stack<char> m_operatorsStack;
 
 // Handle Func
 class Handler : private Uncopyable
@@ -39,6 +33,11 @@ public:
 	static void NumHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
     static void SpaceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
     static void EndHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void ReduceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void DivideHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void MultiplyHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void OpenBracketHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void CloseBracketHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
 };
 
 // Act Funcs
@@ -46,6 +45,9 @@ class Executer : public Uncopyable
 {
 public:
 	static void AddExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_);
+    static void ReduceExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_);
+	static void DivideExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_);
+	static void MultiplyExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_);
 };
 
 static void PrintAndEmptyMyStacks(stack<int> &nums_, stack<char> &operators_);
@@ -76,8 +78,6 @@ const unsigned char SPACE_ASCII = 32;
 const size_t NUM_OF_ASCII_CHARS = 256;
 
 Calculator::Calculator()
-    // : m_numbersStack(InitStack<int>()),
-    //   m_operatorsStack(InitStack<char>())
 {
     InitMaps();
 }
@@ -90,19 +90,20 @@ static void InitMaps()
     g_lut_handler['+'] = Handler::AddHandle;
     g_lut_action['+'] = Executer::AddExecute;
 
-    // g_lut_handler['-'] = ReduceFunc;
-    // g_lut_action['-'] = ReduceActFunc;
+    g_lut_handler['-'] = Handler::ReduceHandle;
+    g_lut_action['-'] = Executer::ReduceExecute;
 
-    // g_lut_handler['/'] = DivideFunc;
-    // g_lut_action['/'] = DivideActFunc;
+    g_lut_handler['/'] = Handler::DivideHandle;
+    g_lut_action['/'] = Executer::DivideExecute;
 
-    // g_lut_handler['*'] = MultiplyFunc;
-    // g_lut_action['*'] = MultiplyActFunc;
+    g_lut_handler['*'] = Handler::MultiplyHandle;
+    g_lut_action['*'] = Executer::MultiplyExecute;
 
-    // g_lut_handler['('] = OpenParenthesisFunc;
-    // g_lut_action[')'] = CloseParenthesisFunc;
+    g_lut_handler['('] = Handler::OpenBracketHandle;
+    g_lut_handler[')'] = Handler::CloseBracketHandle;
+
     g_lut_handler[' '] = Handler::SpaceHandle;
-    //g_lut_handler['\0'] = Handler::EndHandle;
+    g_lut_handler['\0'] = Handler::EndHandle;
 
     for (size_t i = A_ASCII; i <= Z_ASCII; ++i)
     {
@@ -148,29 +149,12 @@ double Calculator::Execute(string str_)
     while (i < lenStr)
     {
         g_lut_handler[static_cast<unsigned char>(str_[i])](m_numbersStack, m_operatorsStack, str_, i);
-        //cout << "int(str_[i]) = " << int(str_[i]) << endl;
-        //for nums
-        // if (int(str_[i]) >= A_ASCII && int(str_[i]) <= Z_ASCII)
-        // {
-        //     int num = ConvertStrIntoNum(str_.substr(i, 3));
-        //     cout << "num = " << num << endl;
-        //     g_lut_handler[num](m_numbersStack, m_operatorsStack, str_, i);
-        // }
-        // else
-        // {
-        //     //cout << static_cast<unsigned char>(str_[i]) << endl;
-        //     //g_lut_handler[static_cast<unsigned char>(str_[i])](m_numbersStack, m_operatorsStack, str_, i);
-        // }
     }
 
     while (!(m_operatorsStack.empty()))
     {
         g_lut_action[static_cast<unsigned char>(m_operatorsStack.top())](m_numbersStack, m_operatorsStack);
     }
-    
-    // double result = m_numbersStack.top();
-    // cout << "result = " << result << endl;
-    // PrintAndEmptyMyStacks(m_numbersStack, m_operatorsStack);
 
     double result = m_numbersStack.top();
     m_numbersStack.pop();
@@ -196,7 +180,25 @@ static void PrintAndEmptyMyStacks(stack<int> &nums_, stack<char> &operators_)
     }
 }
 
-// Handle Funcs
+int ConvertStrIntoNum(string str_)
+{
+    //cout << "g_mapOfNums[str_] = " << g_mapOfNums[str_] << endl;
+
+    //sleep(1);
+
+    return g_mapOfNums[str_];
+}
+
+size_t FindNextSapcePos(string str_, size_t i)
+{
+    //cout << "substr: " << str_.substr(i, str_.length()) << endl;
+    size_t indexOfNextSpace = str_.find(' ', i);
+    //cout << "!!! " << indexOfNextSpace << " !!!";
+
+    return indexOfNextSpace;
+}
+
+// Handler Funcs
 void Handler::AddHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     while(!(operatorsStack_.empty()) && operatorsStack_.top() != '(')
@@ -210,20 +212,36 @@ void Handler::AddHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_,
     ++i;
 }
 
-// Act Funcs
-void Executer::AddExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_)
+void Handler::ReduceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
-    double result = numbersStack_.top();
-    numbersStack_.pop();
-    result = numbersStack_.top() + result;
-    numbersStack_.pop();
+    while(!(operatorsStack_.empty()) && operatorsStack_.top() != '(')
+    {
+        g_lut_action[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_);
+    }
 
-    //cout << "AddExecute: result = " << result << endl;
-    // Push in the resault
-    numbersStack_.push(result);
+    operatorsStack_.push(str_[i]);
 
-    // Pop out the used operator
-    operatorsStack_.pop();
+    ++i;
+}
+
+void Handler::DivideHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+{
+
+}
+
+void Handler::MultiplyHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+{
+
+}
+
+void Handler::OpenBracketHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+{
+
+}
+
+void Handler::CloseBracketHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+{
+
 }
 
 void Handler::NumHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
@@ -256,23 +274,44 @@ void Handler::EndHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_,
     cout << "end" << endl;
 }
 
-int ConvertStrIntoNum(string str_)
+// Executer Funcs
+void Executer::AddExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_)
 {
-    //cout << "g_mapOfNums[str_] = " << g_mapOfNums[str_] << endl;
+    double result = numbersStack_.top();
+    numbersStack_.pop();
+    result = numbersStack_.top() + result;
+    numbersStack_.pop();
 
-    //sleep(1);
+    // Push in the resault
+    numbersStack_.push(result);
 
-    return g_mapOfNums[str_];
+    // Pop out the used operator
+    operatorsStack_.pop();
 }
 
-size_t FindNextSapcePos(string str_, size_t i)
+void Executer::ReduceExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_)
 {
-    //cout << "substr: " << str_.substr(i, str_.length()) << endl;
-    size_t indexOfNextSpace = str_.find(' ', i);
-    //cout << "!!! " << indexOfNextSpace << " !!!";
+    double result = numbersStack_.top();
+    numbersStack_.pop();
+    result = numbersStack_.top() - result;
+    numbersStack_.pop();
 
-    return indexOfNextSpace;
+    cout << "ReduceExecute: result = " << result << endl;
+    // Push in the resault
+    numbersStack_.push(result);
+
+    // Pop out the used operator
+    operatorsStack_.pop();
 }
 
+void Executer::DivideExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_)
+{
+
+}
+
+void Executer::MultiplyExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_)
+{
+
+}
 
 }//namespace l1ght
