@@ -1,7 +1,7 @@
 /******************************************************************************/
-/* author: 		Mirit Hadar											  	  */
-/* version: 	Final			  		                                      */
-/* Last update: 				                                  */
+/* Author: 		Mirit Hadar											  	      */
+/* Version: 	Final			  		                                      */
+/* Last update: 22-01-2020						                              */
 /******************************************************************************/
 
 #include <iostream>			//	cout 	
@@ -25,7 +25,8 @@ int main()
 
 void FileTest()
 {
-	vector<string> vec = Parser::Parse(myFile);
+	Parser p;
+	vector<string> vec = p.Parse(myFile);
 	for (vector<string>::iterator it = vec.begin(); it != vec.end(); ++it)
 	{
 		cout << ' ' << *it << endl;

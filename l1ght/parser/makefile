@@ -8,7 +8,7 @@ ROOT_DIR = ../..
 PROJ_SRCS = parser.cpp parser_test.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = ../uncopyable ../stack
+PROJ_INC_DIR = ../uncopyable
 
 # the executable file
 PROJ_OUT = parser_test.out

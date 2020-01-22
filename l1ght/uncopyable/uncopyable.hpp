@@ -1,4 +1,8 @@
-
+/******************************************************************************/
+/* Author: 		Mirit Hadar											  	      */
+/* Version: 	Final			  		                                      */
+/* Last update: 22-01-2020						                              */
+/******************************************************************************/
 
 #ifndef L1GHT_UNCOPYABLE
 #define L1GHT_UNCOPYABLE
@@ -28,6 +32,6 @@ private:
     Uncopyable &operator=(const Uncopyable &other_);
 };
 
-}//namespace l1ght
+} // namespace l1ght
 
-#endif//L1GHT_UNCOPYABLE
+#endif // L1GHT_UNCOPYABLE

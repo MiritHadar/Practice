@@ -1,17 +1,21 @@
 /******************************************************************************/
-/* author: 		Mirit Hadar											  	      */
-/* version: 	Final			  		                                      */
-/* Last update: 					                                          */
+/* Author: 		Mirit Hadar											  	      */
+/* Version: 	Final			  		                                      */
+/* Last update: 22-01-2020						                              */
 /******************************************************************************/
 
 #include <sstream>      // stringstream
 #include <iostream>     // cout
+
 #include "parser.hpp"   // header file
 
 namespace l1ght
 {
 
 using namespace std;
+
+static string CopyFromFileToBuff(const char fileName_[]);
+static vector<string> SplitStrIntoLines(string &str_);
 
 vector<string> Parser::Parse(const char fileName_[])
 {
@@ -21,7 +25,7 @@ vector<string> Parser::Parse(const char fileName_[])
     return vec;
 }
 
-string Parser::CopyFromFileToBuff(const char fileName_[])
+string CopyFromFileToBuff(const char fileName_[])
 {
     stringbuf buff;
     ifstream myFile;
@@ -36,24 +40,22 @@ string Parser::CopyFromFileToBuff(const char fileName_[])
 
     string str;
     str = buff.str();
-    //cout << "str:" << str << endl;
 
     myFile.close();
 
     return str;
 }
 
-vector<string> Parser::SplitStrIntoLines(string &str_)
+vector<string> SplitStrIntoLines(string &str_)
 {
     stringstream stream;
     stream << str_;
     string line;
-    vector<string> vec; // No RAII. User responsible for freeing!!!
+    vector<string> vec;
 
     do
     {
         getline(stream, line);
-        //cout << "!" << line << endl;
         vec.push_back(line);
 
     } while (!stream.eof());
@@ -67,4 +69,4 @@ FileDoesntOpen::FileDoesntOpen(const std::string &what_)
     ;
 }
 
-}//namespace l1ght
+} // namespace l1ght

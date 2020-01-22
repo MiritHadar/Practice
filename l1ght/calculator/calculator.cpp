@@ -1,12 +1,13 @@
 /******************************************************************************/
-/* author: 		Mirit Hadar											  	      */
-/* version: 	Final			  		                                      */
-/* Last update: 							                                  */
+/* Author: 		Mirit Hadar											  	      */
+/* Version: 	Final			  		                                      */
+/* Last update: 22-01-2020						                              */
 /******************************************************************************/
 
 #include <iostream>            // cout
 #include <unordered_map>       // map
 #include <unistd.h>			   // sleep
+
 #include "calculator.hpp"      // header file
 
 namespace l1ght
@@ -119,7 +120,8 @@ static void InitMaps()
 
 vector<double> Calculator::Calculate(const char fileName_[])
 {
-    vector<string> vecOfStrings = Parser::Parse(fileName_);
+    Parser p;
+    vector<string> vecOfStrings = p.Parse(fileName_);
     vector<double> vecOfResults;
 
     for (vector<string>::iterator it = vecOfStrings.begin();
@@ -145,7 +147,6 @@ double Calculator::Execute(string str_)
 
     double result = m_numbersStack.top();
     m_numbersStack.pop();
-    cout << "result = " << result << endl; //remove
 
     return result;
 }
@@ -322,4 +323,4 @@ void Executer::MultiplyExecute(stack<double> &numbersStack_, stack<char> &operat
     operatorsStack_.pop();
 }
 
-}//namespace l1ght
+} // namespace l1ght

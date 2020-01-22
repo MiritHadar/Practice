@@ -1,7 +1,7 @@
 /******************************************************************************/
-/* author: 		Mirit Hadar											  	      */
-/* version: 	Final			  		                                      */
-/* Last update: 							                                  */
+/* Author: 		Mirit Hadar											  	      */
+/* Version: 	Final			  		                                      */
+/* Last update: 22-01-2020						                              */
 /******************************************************************************/
 
 #ifndef L1GHT_PARSER
@@ -12,44 +12,27 @@
 #define noexcept throw()
 #endif
 
-#include <vector>      	    //  vector
-#include <fstream>			//  ifstream
-#include <stdexcept>		// 	runtime_error
-#include <dlfcn.h>			//	dlerror
-#include <cerrno>			//	errno
-#include <cstring>			//	strerror
-#include <memory>           // shared_ptr
+#include <vector>      	    // vector
+#include <fstream>			// ifstream
+#include <cerrno>			// errno
 
 #include "uncopyable.hpp"	// For inaccessible CCtor and assign operator
-#include "stack.hpp"		// My Stack
 
 namespace l1ght
 {
 
 class Parser : private Uncopyable
 {
-
 public:
-	// Ctors (CCtors Blocked)
-	//explicit Parser();
+	explicit Parser() = default;
 	~Parser() noexcept = default;
-
-	// Funcs
-	static std::vector<std::string> Parse(const char fileName_[]);
-	static std::string CopyFromFileToBuff(const char fileName_[]);
-	// in SplitStrIntoLines theres No RAII. User responsible for freeing vector allocated!!!
-	static std::vector<std::string> SplitStrIntoLines(std::string &str_);
-
-private:
-	
+	std::vector<std::string> Parse(const char fileName_[]);
 };
 
 class FileDoesntOpen : public std::runtime_error
 {
 public:
 	explicit FileDoesntOpen(const std::string &errorString_ = "");
-private:
-
 };
 
 } // namespace l1ght
