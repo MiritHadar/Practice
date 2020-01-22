@@ -26,11 +26,11 @@ const char integrationFile[] = "all_arithmetics.txt";
 
 int main()
 {
-	// ExceptionTest();
-	// PlusMinusTest();
-	// MultiplyTest();
-	// DivisionTest();
-	// IntegrationTest();
+	//ExceptionTest();
+	PlusMinusTest();
+	MultiplyTest();
+	DivisionTest();
+	IntegrationTest();
 
 	return 0;
 }

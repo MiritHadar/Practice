@@ -13,11 +13,6 @@
 #endif
 
 #include <vector>      	    // vector
-#include <fstream>			// ifstream
-#include <stdexcept>		// runtime_error
-#include <cerrno>			// errno
-#include <cstring>			// strerror
-#include <sstream>          // stringstream
 #include <stack>			// stack	
 
 #include "uncopyable.hpp"	// For inaccessible CCtor and assign operator
@@ -28,22 +23,24 @@ namespace l1ght
 
 class Calculator : private Uncopyable
 {
+	friend class Handler;
+	friend class Executer;
 
 public:
-	// Ctor
+	// Ctors
 	explicit Calculator();
-	//default dtor
+	~Calculator() = default;
 
+	// Funcs
 	std::vector<double> Calculate(const char fileName_[]);
 
 private:
+	// Data members
+	std::stack<double> m_numbersStack;
+	std::stack<char> m_operatorsStack;
+
 	// Funcs
 	double Execute(std::string str_);
-	//int ConvertStrIntoNum(std::string str_);
-
-	// Data members
-	static std::stack<double> m_numbersStack;
-	static std::stack<char> m_operatorsStack;
 };
 
 } // namespace l1ght
