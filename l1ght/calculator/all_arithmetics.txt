@@ -1,3 +1,2 @@
-Two Zero + Seven Eight
-One + Tree * Ten
-Four Five * (Two + Tree) + Six
+Four Five * (Two + Three) + Six
+(Two + One)

@@ -55,7 +55,7 @@ public:
 static void PrintAndEmptyMyStacks(stack<double> &nums_, stack<char> &operators_);
 static void InitMaps();
 static double ConvertStrToNum(string str_);
-static size_t FindNextSapcePos(string str_, size_t i);
+static size_t FindNextPos(string str_, size_t i);
 
 typedef void (*hand_func)(stack<double> &numbersStack_,
                           stack<char> &operatorsStack_,
@@ -145,9 +145,10 @@ double Calculator::Execute(string str_)
     size_t lenStr = str_.length();
     size_t i = 0;
 
-    while (i <= lenStr) //Check end
+    while (i < lenStr) //Check end
     {
         g_lut_handler[static_cast<unsigned char>(str_[i])](m_numbersStack, m_operatorsStack, str_, i);
+        //sleep(1);
     }
 
     Handler::EndHandle(m_numbersStack, m_operatorsStack, str_, i);
@@ -181,13 +182,17 @@ double ConvertStrToNum(string str_)
     return g_mapOfNums[str_];
 }
 
-size_t FindNextSapcePos(string str_, size_t i)
+size_t FindNextPos(string str_, size_t i)
 {
     //cout << "substr: " << str_.substr(i, str_.length()) << endl;
-    size_t indexOfNextSpace = str_.find(' ', i);
+    size_t indexOfNextPos = str_.find(' ', i);
     //cout << "!!! " << indexOfNextSpace << " !!!";
+    if ((indexOfNextPos > str_.length()) || (str_[indexOfNextPos - 1] == ')'))
+    {
+        indexOfNextPos = str_.find(')', i);
+    }
 
-    return indexOfNextSpace;
+    return indexOfNextPos;
 }
 
 // Handler Funcs
@@ -209,7 +214,8 @@ void Handler::MultiplyOrDivideHandle(stack<double> &numbersStack_, stack<char> &
 {
     UpdateNumbersStack(numbersStack_);
     
-    while (!(operatorsStack_.empty()) && ((operatorsStack_.top() == '/') || (operatorsStack_.top() == '*')))
+    while (!(operatorsStack_.empty()) &&
+                ((operatorsStack_.top() == '/') || (operatorsStack_.top() == '*')))
     {
         ExecuteTopOperator(numbersStack_, operatorsStack_);
     }
@@ -221,26 +227,31 @@ void Handler::MultiplyOrDivideHandle(stack<double> &numbersStack_, stack<char> &
 
 void Handler::OpenBracketHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
-    
-
+    operatorsStack_.push(str_[i]);
+    cout << "openning : " << str_[i] << endl;
+    ++i;
 }
 
 void Handler::CloseBracketHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     UpdateNumbersStack(numbersStack_);
+
+    while (operatorsStack_.top() != '(')
+    {
+        ExecuteTopOperator(numbersStack_, operatorsStack_);
+        cout << "operatorsStack_.top() = " << operatorsStack_.top() << endl;
+    }
+
+    operatorsStack_.pop();
+    ++i;
+    
 }
 
 void Handler::NumHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
-    size_t nextPos = FindNextSapcePos(str_, i);
+    size_t nextPos = FindNextPos(str_, i);
     //cout << nextPos << " just spaces: " << str_[nextPos] << endl;
     double num = ConvertStrToNum(str_.substr(i, 3));
-
-    //check for brackets
-    if (str_[nextPos - 1] == ')')
-    {
-        --nextPos;
-    }
 
     if (g_lastTokenWasNum)
     {
@@ -258,9 +269,12 @@ void Handler::NumHandle(stack<double> &numbersStack_, stack<char> &operatorsStac
 
 void Handler::UpdateNumbersStack(stack<double> &numbersStack_)
 {
-    g_lastTokenWasNum = false;
-    numbersStack_.push(g_tmpNumToPushToStack);
-    g_tmpNumToPushToStack = -1;
+    if (-1 != g_tmpNumToPushToStack)
+    {
+        g_lastTokenWasNum = false;
+        numbersStack_.push(g_tmpNumToPushToStack);
+        g_tmpNumToPushToStack = -1;
+    }
 }
 
 void Handler::ExecuteTopOperator(stack<double> &numbersStack_, stack<char> &operatorsStack_)
@@ -275,14 +289,15 @@ void Handler::SpaceHandle(stack<double> &numbersStack_, stack<char> &operatorsSt
 
 void Handler::EndHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
-    //Add this back
     UpdateNumbersStack(numbersStack_);
+
     while (!operatorsStack_.empty())
     {
         g_lut_action[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_);   
     }
 
     cout << "end" << endl;
+    ++i;
 }
 
 // Executer Funcs
