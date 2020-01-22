@@ -19,7 +19,7 @@ void DivisionTest();
 const char wrongFile[] = "wrong";
 const char multiDigitFile[] = "multi_digit_nums.txt";
 const char multiplyFile[] = "multiply.txt";
-const char divisionFile[] = "division.txt";
+const char divisionFile[] = "division_ad.txt";
 const char integrationFile[] = "integration.txt";
 
 int main()

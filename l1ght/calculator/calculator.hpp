@@ -43,7 +43,7 @@ private:
 	//int ConvertStrIntoNum(std::string str_);
 
 	// Data members
-	static std::stack<int> m_numbersStack;
+	static std::stack<double> m_numbersStack;
 	static std::stack<char> m_operatorsStack;
 };
 
