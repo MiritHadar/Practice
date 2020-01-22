@@ -29,15 +29,17 @@ stack<char> Calculator::m_operatorsStack = InitStack<char>();
 class Handler : private Uncopyable
 {
 public:
-	static void AddHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+	static void AddOrReduceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
 	static void NumHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
     static void SpaceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
     static void EndHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
-    static void ReduceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
-    static void DivideHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
-    static void MultiplyHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void MultiplyOrDivideHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
     static void OpenBracketHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
     static void CloseBracketHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+
+private:
+    static void UpdateNumberStack(stack<int> &numbersStack_);
+    static void ExecuteTopOperator(stack<int> &numbersStack_, stack<char> &operatorsStack_);
 };
 
 // Act Funcs
@@ -67,15 +69,16 @@ hand_func g_lut_handler[256];
 act_func g_lut_action[256];
 unordered_map<string,int> g_mapOfNums;
 
+bool g_lastTokenWasNum = 0;
+double g_tmpNumToPushToStack = -1;
+
 const unsigned char ZERO_ASCII = 48;
 const unsigned char NINE_ASCII = 57;
 const unsigned char A_ASCII = 65;
 const unsigned char Z_ASCII = 90;
-//const unsigned char OPENNING_BRACKET = 40;
-//const unsigned char CLOSING_BRACKET = 41;
-//const unsigned char OPERATORS_ASCII = 48;
 const unsigned char SPACE_ASCII = 32;
 const size_t NUM_OF_ASCII_CHARS = 256;
+//const size_t NUM_OF_LETTERS_FOR
 
 Calculator::Calculator()
 {
@@ -87,16 +90,16 @@ static void InitMaps()
     // m_numbersStack = InitStack<int>();
     // m_operatorsStack = InitStack<char>();
 
-    g_lut_handler['+'] = Handler::AddHandle;
+    g_lut_handler['+'] = Handler::AddOrReduceHandle;
     g_lut_action['+'] = Executer::AddExecute;
 
-    g_lut_handler['-'] = Handler::ReduceHandle;
+    g_lut_handler['-'] = Handler::AddOrReduceHandle; //repare!!!!!!!!!!!!!
     g_lut_action['-'] = Executer::ReduceExecute;
 
-    g_lut_handler['/'] = Handler::DivideHandle;
+    g_lut_handler['/'] = Handler::MultiplyOrDivideHandle;
     g_lut_action['/'] = Executer::DivideExecute;
 
-    g_lut_handler['*'] = Handler::MultiplyHandle;
+    g_lut_handler['*'] = Handler::MultiplyOrDivideHandle;
     g_lut_action['*'] = Executer::MultiplyExecute;
 
     g_lut_handler['('] = Handler::OpenBracketHandle;
@@ -146,15 +149,12 @@ double Calculator::Execute(string str_)
     size_t lenStr = str_.length();
     size_t i = 0;
 
-    while (i < lenStr)
+    while (i <= lenStr) //Check end
     {
         g_lut_handler[static_cast<unsigned char>(str_[i])](m_numbersStack, m_operatorsStack, str_, i);
     }
 
-    while (!(m_operatorsStack.empty()))
-    {
-        g_lut_action[static_cast<unsigned char>(m_operatorsStack.top())](m_numbersStack, m_operatorsStack);
-    }
+    Handler::EndHandle(m_numbersStack, m_operatorsStack, str_, i);
 
     double result = m_numbersStack.top();
     m_numbersStack.pop();
@@ -182,10 +182,6 @@ static void PrintAndEmptyMyStacks(stack<int> &nums_, stack<char> &operators_)
 
 int ConvertStrIntoNum(string str_)
 {
-    //cout << "g_mapOfNums[str_] = " << g_mapOfNums[str_] << endl;
-
-    //sleep(1);
-
     return g_mapOfNums[str_];
 }
 
@@ -199,12 +195,13 @@ size_t FindNextSapcePos(string str_, size_t i)
 }
 
 // Handler Funcs
-void Handler::AddHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::AddOrReduceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
+    UpdateNumberStack(numbersStack_);
+
     while(!(operatorsStack_.empty()) && operatorsStack_.top() != '(')
     {
-        cout << "got + " << endl;
-        g_lut_action[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_);
+        ExecuteTopOperator(numbersStack_, operatorsStack_);
     }
 
     operatorsStack_.push(str_[i]);
@@ -212,36 +209,30 @@ void Handler::AddHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_,
     ++i;
 }
 
-void Handler::ReduceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::MultiplyOrDivideHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
-    while(!(operatorsStack_.empty()) && operatorsStack_.top() != '(')
+    UpdateNumberStack(numbersStack_);
+    
+    while (!operatorsStack_.empty() &&
+            (operatorsStack_.top()) == ('/' || operatorsStack_.top() == '*'))
     {
-        g_lut_action[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_);
+        ExecuteTopOperator(numbersStack_, operatorsStack_);
     }
 
     operatorsStack_.push(str_[i]);
 
     ++i;
-}
-
-void Handler::DivideHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
-{
-
-}
-
-void Handler::MultiplyHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
-{
-
 }
 
 void Handler::OpenBracketHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
+    
 
 }
 
 void Handler::CloseBracketHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
-
+    UpdateNumberStack(numbersStack_);
 }
 
 void Handler::NumHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
@@ -249,7 +240,6 @@ void Handler::NumHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_,
     size_t nextPos = FindNextSapcePos(str_, i);
     //cout << nextPos << " just spaces: " << str_[nextPos] << endl;
     int num = ConvertStrIntoNum(str_.substr(i, 3));
-    numbersStack_.push(num);
 
     //check for brackets
     if (str_[nextPos - 1] == ')')
@@ -257,7 +247,30 @@ void Handler::NumHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_,
         --nextPos;
     }
 
+    if (g_lastTokenWasNum)
+    {
+        g_tmpNumToPushToStack *= 10;
+        g_tmpNumToPushToStack += num;
+    }
+    else
+    {
+        g_tmpNumToPushToStack = num;
+        g_lastTokenWasNum = true;
+    }
+
     i = nextPos;
+}
+
+void Handler::UpdateNumberStack(stack<int> &numbersStack_)
+{
+    g_lastTokenWasNum = false;
+    numbersStack_.push(g_tmpNumToPushToStack);
+    g_tmpNumToPushToStack = -1;
+}
+
+void Handler::ExecuteTopOperator(stack<int> &numbersStack_, stack<char> &operatorsStack_)
+{
+    g_lut_action[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_);
 }
 
 void Handler::SpaceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
@@ -267,10 +280,13 @@ void Handler::SpaceHandle(stack<int> &numbersStack_, stack<char> &operatorsStack
 
 void Handler::EndHandle(stack<int> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
-    // while (!operatorsStack_.IsEmpty())
-    // {
-    //     g_lut_action[static_cast<unsigned char>(operatorsStack_.Top())](numbersStack_, operatorsStack_, it);   
-    // }
+    //Add this back
+    UpdateNumberStack(numbersStack_);
+    while (!operatorsStack_.empty())
+    {
+        g_lut_action[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_);   
+    }
+
     cout << "end" << endl;
 }
 
@@ -296,7 +312,7 @@ void Executer::ReduceExecute(stack<int> &numbersStack_, stack<char> &operatorsSt
     result = numbersStack_.top() - result;
     numbersStack_.pop();
 
-    cout << "ReduceExecute: result = " << result << endl;
+    //cout << "ReduceExecute: result = " << result << endl;
     // Push in the resault
     numbersStack_.push(result);
 
@@ -306,12 +322,32 @@ void Executer::ReduceExecute(stack<int> &numbersStack_, stack<char> &operatorsSt
 
 void Executer::DivideExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_)
 {
+    double result = numbersStack_.top();
+    numbersStack_.pop();
+    result = numbersStack_.top() / result;
+    numbersStack_.pop();
 
+    //cout << "ReduceExecute: result = " << result << endl;
+    // Push in the resault
+    numbersStack_.push(result);
+
+    // Pop out the used operator
+    operatorsStack_.pop();
 }
 
 void Executer::MultiplyExecute(stack<int> &numbersStack_, stack<char> &operatorsStack_)
 {
+    double result = numbersStack_.top();
+    numbersStack_.pop();
+    result = numbersStack_.top() * result;
+    numbersStack_.pop();
 
+    //cout << "ReduceExecute: result = " << result << endl;
+    // Push in the resault
+    numbersStack_.push(result);
+
+    // Pop out the used operator
+    operatorsStack_.pop();
 }
 
 }//namespace l1ght

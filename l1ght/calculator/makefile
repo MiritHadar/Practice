@@ -8,7 +8,7 @@ ROOT_DIR = ../..
 PROJ_SRCS = calculator_test.cpp calculator.cpp
 
 # list of directories containing header files
-PROJ_INC_DIR = ../uncopyable ../stack ../parser
+PROJ_INC_DIR = ../uncopyable ../parser
 
 # the executable file
 PROJ_OUT = calculator_test.out

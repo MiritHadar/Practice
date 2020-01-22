@@ -22,7 +22,6 @@
 #include <stack>			// stack	
 
 #include "uncopyable.hpp"	// For inaccessible CCtor and assign operator
-#include "stack.hpp"		// My Stack
 #include "parser.hpp"
 
 namespace l1ght
@@ -44,8 +43,6 @@ private:
 	//int ConvertStrIntoNum(std::string str_);
 
 	// Data members
-	//Stack<int> m_numbersStack;
-	//Stack<char> m_operatorsStack;
 	static std::stack<int> m_numbersStack;
 	static std::stack<char> m_operatorsStack;
 };
