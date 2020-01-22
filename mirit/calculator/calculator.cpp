@@ -41,13 +41,13 @@ public:
     ~Handler() = default;
 
     // Funcs
-	static void AddOrReduceHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
-    static void MultiplyOrDivideHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
-    static void OpenBracketHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
-    static void CloseBracketHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
-	static void NumHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
-    static void SpaceHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
-    static void EndHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+	static void AddOrReduce(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void MultiplyOrDivide(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void OpenBracket(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void CloseBracket(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+	static void Num(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void Space(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
+    static void End(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i);
 
 private:
     //Helper Funcs
@@ -64,16 +64,16 @@ public:
     ~Executer() = default;
 
     // Funcs
-	static void AddExecute(stack<double> &numbersStack_, stack<char> &operatorsStack_);
-    static void ReduceExecute(stack<double> &numbersStack_, stack<char> &operatorsStack_);
-	static void DivideExecute(stack<double> &numbersStack_, stack<char> &operatorsStack_);
-	static void MultiplyExecute(stack<double> &numbersStack_, stack<char> &operatorsStack_);
+	static void Add(stack<double> &numbersStack_, stack<char> &operatorsStack_);
+    static void Reduce(stack<double> &numbersStack_, stack<char> &operatorsStack_);
+	static void Divide(stack<double> &numbersStack_, stack<char> &operatorsStack_);
+	static void Multiply(stack<double> &numbersStack_, stack<char> &operatorsStack_);
 };
 
 // Static Func Declaration
 template <typename T>
 static stack<T> InitStack();
-static void InitMapsOfFuncsAndNums();
+static void InitHelperMaps();
 static double ConvertStrToNum(string str_);
 static size_t FindNextPos(string str_, size_t i);
 
@@ -81,7 +81,7 @@ Calculator::Calculator()
     : m_numbersStack(InitStack<double>()),
       m_operatorsStack(InitStack<char>())
 {
-    InitMapsOfFuncsAndNums();
+    InitHelperMaps();
 }
 
 /*************************************** Calculators Definition ************************************/
@@ -116,7 +116,7 @@ double Calculator::Execute(string str_)
     }
 
     // Handle '\0' at end of string
-    Handler::EndHandle(m_numbersStack, m_operatorsStack, str_, i);
+    Handler::End(m_numbersStack, m_operatorsStack, str_, i);
 
     double result = m_numbersStack.top();
     m_numbersStack.pop();
@@ -125,7 +125,7 @@ double Calculator::Execute(string str_)
 }
 
 /**************************************** Handler Definition ***************************************/
-void Handler::AddOrReduceHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::AddOrReduce(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     UpdateNumbersStack(numbersStack_);
 
@@ -140,7 +140,7 @@ void Handler::AddOrReduceHandle(stack<double> &numbersStack_, stack<char> &opera
     ++i;
 }
 
-void Handler::MultiplyOrDivideHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::MultiplyOrDivide(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     UpdateNumbersStack(numbersStack_);
     
@@ -156,14 +156,14 @@ void Handler::MultiplyOrDivideHandle(stack<double> &numbersStack_, stack<char> &
     ++i;
 }
 
-void Handler::OpenBracketHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::OpenBracket(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     operatorsStack_.push(str_[i]);
 
     ++i;
 }
 
-void Handler::CloseBracketHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::CloseBracket(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     UpdateNumbersStack(numbersStack_);
 
@@ -178,7 +178,7 @@ void Handler::CloseBracketHandle(stack<double> &numbersStack_, stack<char> &oper
     
 }
 
-void Handler::NumHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::Num(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     // Find nest space or closing bracket
     size_t nextPos = FindNextPos(str_, i);
@@ -213,12 +213,12 @@ void Handler::ExecuteTopOperator(stack<double> &numbersStack_, stack<char> &oper
     g_lut_action[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_);
 }
 
-void Handler::SpaceHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::Space(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     ++i;
 }
 
-void Handler::EndHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
+void Handler::End(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     UpdateNumbersStack(numbersStack_);
 
@@ -230,7 +230,7 @@ void Handler::EndHandle(stack<double> &numbersStack_, stack<char> &operatorsStac
 }
 
 /*************************************** Executer Definition ***************************************/
-void Executer::AddExecute(stack<double> &numbersStack_, stack<char> &operatorsStack_)
+void Executer::Add(stack<double> &numbersStack_, stack<char> &operatorsStack_)
 {
     double result = numbersStack_.top();
     numbersStack_.pop();
@@ -244,7 +244,7 @@ void Executer::AddExecute(stack<double> &numbersStack_, stack<char> &operatorsSt
     operatorsStack_.pop();
 }
 
-void Executer::ReduceExecute(stack<double> &numbersStack_, stack<char> &operatorsStack_)
+void Executer::Reduce(stack<double> &numbersStack_, stack<char> &operatorsStack_)
 {
     double result = numbersStack_.top();
     numbersStack_.pop();
@@ -258,7 +258,7 @@ void Executer::ReduceExecute(stack<double> &numbersStack_, stack<char> &operator
     operatorsStack_.pop();
 }
 
-void Executer::DivideExecute(stack<double> &numbersStack_, stack<char> &operatorsStack_)
+void Executer::Divide(stack<double> &numbersStack_, stack<char> &operatorsStack_)
 {
     double result = numbersStack_.top();
     numbersStack_.pop();
@@ -272,7 +272,7 @@ void Executer::DivideExecute(stack<double> &numbersStack_, stack<char> &operator
     operatorsStack_.pop();
 }
 
-void Executer::MultiplyExecute(stack<double> &numbersStack_, stack<char> &operatorsStack_)
+void Executer::Multiply(stack<double> &numbersStack_, stack<char> &operatorsStack_)
 {
     double result = numbersStack_.top();
     numbersStack_.pop();
@@ -298,31 +298,31 @@ static stack<T> InitStack()
 }
 
 // Init global LUTs and map
-static void InitMapsOfFuncsAndNums()
+static void InitHelperMaps()
 {
     // Assign to LUT Functions that handle operators
-    g_lut_handler['+'] = Handler::AddOrReduceHandle;
-    g_lut_action['+'] = Executer::AddExecute;
+    g_lut_handler['+'] = Handler::AddOrReduce;
+    g_lut_action['+'] = Executer::Add;
 
-    g_lut_handler['-'] = Handler::AddOrReduceHandle;
-    g_lut_action['-'] = Executer::ReduceExecute;
+    g_lut_handler['-'] = Handler::AddOrReduce;
+    g_lut_action['-'] = Executer::Reduce;
 
-    g_lut_handler['/'] = Handler::MultiplyOrDivideHandle;
-    g_lut_action['/'] = Executer::DivideExecute;
+    g_lut_handler['/'] = Handler::MultiplyOrDivide;
+    g_lut_action['/'] = Executer::Divide;
 
-    g_lut_handler['*'] = Handler::MultiplyOrDivideHandle;
-    g_lut_action['*'] = Executer::MultiplyExecute;
+    g_lut_handler['*'] = Handler::MultiplyOrDivide;
+    g_lut_action['*'] = Executer::Multiply;
 
-    g_lut_handler['('] = Handler::OpenBracketHandle;
-    g_lut_handler[')'] = Handler::CloseBracketHandle;
+    g_lut_handler['('] = Handler::OpenBracket;
+    g_lut_handler[')'] = Handler::CloseBracket;
 
-    g_lut_handler[' '] = Handler::SpaceHandle;
-    g_lut_handler['\0'] = Handler::EndHandle;
+    g_lut_handler[' '] = Handler::Space;
+    g_lut_handler['\0'] = Handler::End;
 
     // Assign to LUT Functions that handle numbers in letters
     for (size_t i = FIRST_ASCII_LETTER; i <= LAST_ASCII_LETTER; ++i)
     {
-        g_lut_handler[i] = Handler::NumHandle;
+        g_lut_handler[i] = Handler::Num;
     }
     
     // Assign to map the numeric value of each key number name
