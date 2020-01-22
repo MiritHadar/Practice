@@ -22,6 +22,7 @@ static stack<T> InitStack()
     return s;
 }
 
+// Static members declaration
 stack<double> Calculator::m_numbersStack = InitStack<double>();
 stack<char> Calculator::m_operatorsStack = InitStack<char>();
 
@@ -52,7 +53,6 @@ public:
 	static void MultiplyExecute(stack<double> &numbersStack_, stack<char> &operatorsStack_);
 };
 
-static void PrintAndEmptyMyStacks(stack<double> &nums_, stack<char> &operators_);
 static void InitMaps();
 static double ConvertStrToNum(string str_);
 static size_t FindNextPos(string str_, size_t i);
@@ -72,13 +72,8 @@ unordered_map<string,double> g_mapOfNums;
 bool g_lastTokenWasNum = 0;
 double g_tmpNumToPushToStack = -1;
 
-const unsigned char ZERO_ASCII = 48;
-const unsigned char NINE_ASCII = 57;
 const unsigned char A_ASCII = 65;
 const unsigned char Z_ASCII = 90;
-const unsigned char SPACE_ASCII = 32;
-const size_t NUM_OF_ASCII_CHARS = 256;
-//const size_t NUM_OF_LETTERS_FOR
 
 Calculator::Calculator()
 {
@@ -87,13 +82,10 @@ Calculator::Calculator()
 
 static void InitMaps()
 {
-    // m_numbersStack = InitStack<int>();
-    // m_operatorsStack = InitStack<char>();
-
     g_lut_handler['+'] = Handler::AddOrReduceHandle;
     g_lut_action['+'] = Executer::AddExecute;
 
-    g_lut_handler['-'] = Handler::AddOrReduceHandle; //repare!!!!!!!!!!!!!
+    g_lut_handler['-'] = Handler::AddOrReduceHandle;
     g_lut_action['-'] = Executer::ReduceExecute;
 
     g_lut_handler['/'] = Handler::MultiplyOrDivideHandle;
@@ -131,8 +123,7 @@ vector<double> Calculator::Calculate(const char fileName_[])
     vector<double> vecOfResults;
 
     for (vector<string>::iterator it = vecOfStrings.begin();
-        (it != vecOfStrings.end()) && !(static_cast<string>(*it).empty());
-                                                                     ++it)
+        (it != vecOfStrings.end()) && !(static_cast<string>(*it).empty()); ++it)
     {
         vecOfResults.push_back(Execute(*it));
     }
@@ -145,36 +136,18 @@ double Calculator::Execute(string str_)
     size_t lenStr = str_.length();
     size_t i = 0;
 
-    while (i < lenStr) //Check end
+    while (i < lenStr)
     {
         g_lut_handler[static_cast<unsigned char>(str_[i])](m_numbersStack, m_operatorsStack, str_, i);
-        //sleep(1);
     }
 
     Handler::EndHandle(m_numbersStack, m_operatorsStack, str_, i);
 
     double result = m_numbersStack.top();
     m_numbersStack.pop();
-    cout << "result = " << result << endl;
+    cout << "result = " << result << endl; //remove
 
     return result;
-}
-
-static void PrintAndEmptyMyStacks(stack<double> &nums_, stack<char> &operators_)
-{
-    cout << "numbers:" << endl;
-    while(!(nums_.empty()))
-    {
-        cout << nums_.top() << endl;
-        nums_.pop();
-    }
-
-    cout << "operators:" << endl;
-    while(!(operators_.empty()))
-    {
-        cout << operators_.top() << endl;
-        operators_.pop();
-    }
 }
 
 double ConvertStrToNum(string str_)
@@ -184,9 +157,7 @@ double ConvertStrToNum(string str_)
 
 size_t FindNextPos(string str_, size_t i)
 {
-    //cout << "substr: " << str_.substr(i, str_.length()) << endl;
     size_t indexOfNextPos = str_.find(' ', i);
-    //cout << "!!! " << indexOfNextSpace << " !!!";
     if ((indexOfNextPos > str_.length()) || (str_[indexOfNextPos - 1] == ')'))
     {
         indexOfNextPos = str_.find(')', i);
@@ -228,7 +199,6 @@ void Handler::MultiplyOrDivideHandle(stack<double> &numbersStack_, stack<char> &
 void Handler::OpenBracketHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     operatorsStack_.push(str_[i]);
-    cout << "openning : " << str_[i] << endl;
     ++i;
 }
 
@@ -239,7 +209,6 @@ void Handler::CloseBracketHandle(stack<double> &numbersStack_, stack<char> &oper
     while (operatorsStack_.top() != '(')
     {
         ExecuteTopOperator(numbersStack_, operatorsStack_);
-        cout << "operatorsStack_.top() = " << operatorsStack_.top() << endl;
     }
 
     operatorsStack_.pop();
@@ -250,7 +219,6 @@ void Handler::CloseBracketHandle(stack<double> &numbersStack_, stack<char> &oper
 void Handler::NumHandle(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
     size_t nextPos = FindNextPos(str_, i);
-    //cout << nextPos << " just spaces: " << str_[nextPos] << endl;
     double num = ConvertStrToNum(str_.substr(i, 3));
 
     if (g_lastTokenWasNum)
@@ -295,9 +263,6 @@ void Handler::EndHandle(stack<double> &numbersStack_, stack<char> &operatorsStac
     {
         g_lut_action[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_);   
     }
-
-    cout << "end" << endl;
-    ++i;
 }
 
 // Executer Funcs
@@ -322,7 +287,6 @@ void Executer::ReduceExecute(stack<double> &numbersStack_, stack<char> &operator
     result = numbersStack_.top() - result;
     numbersStack_.pop();
 
-    //cout << "ReduceExecute: result = " << result << endl;
     // Push in the resault
     numbersStack_.push(result);
 
@@ -337,7 +301,6 @@ void Executer::DivideExecute(stack<double> &numbersStack_, stack<char> &operator
     result = numbersStack_.top() / result;
     numbersStack_.pop();
 
-    //cout << "ReduceExecute: result = " << result << endl;
     // Push in the resault
     numbersStack_.push(result);
 
@@ -352,7 +315,6 @@ void Executer::MultiplyExecute(stack<double> &numbersStack_, stack<char> &operat
     result = numbersStack_.top() * result;
     numbersStack_.pop();
 
-    //cout << "ReduceExecute: result = " << result << endl;
     // Push in the resault
     numbersStack_.push(result);
 

@@ -26,9 +26,9 @@ const char integrationFile[] = "all_arithmetics.txt";
 int main()
 {
 	//ExceptionTest();
-	//PlusMinusTest();
-	//MultiplyTest();
-	//DivisionTest();
+	// PlusMinusTest();
+	// MultiplyTest();
+	// DivisionTest();
 	IntegrationTest();
 
 	return 0;
