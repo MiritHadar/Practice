@@ -1,3 +1,4 @@
+
 INC_FOLDER = ./include
 SRC_FOLDER = ./src
 OBJ_FOLDER = ./objects
@@ -11,7 +12,7 @@ INC = -I$(INC_FOLDER)
 
 RM = rm -f
 
-SOURCES = calculator.cpp calculator_test.cpp  
+SOURCES = calculator.cpp calculator_test.cpp parser.cpp
 
 OBJECTS = $(patsubst %.cpp, $(OBJ_FOLDER)/%.o, $(SOURCES)) 
 

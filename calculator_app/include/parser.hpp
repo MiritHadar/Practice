@@ -1,16 +1,11 @@
 /******************************************************************************/
-/* Author: 		Mirit Hadar											  	      */
-/* Version: 	Final			  		                                      */
-/* Last update: 22-01-2020						                              */
+/* Author: 		    Mirit Hadar											  	  */
+/* Version: 	    Final			  		                                  */
+/* Last update:     22-01-2020						                          */
 /******************************************************************************/
 
 #ifndef L1GHT_PARSER
 #define L1GHT_PARSER
-
-#if __cplusplus < 201103L
-#define nullptr NULL
-#define noexcept throw()
-#endif
 
 #include <vector>      	    // vector
 #include <fstream>			// ifstream
@@ -24,8 +19,11 @@ namespace l1ght
 class Parser : private Uncopyable
 {
 public:
+	// Ctors
 	explicit Parser() = default;
 	~Parser() noexcept = default;
+
+	// Funcs
 	std::vector<std::string> Parse(const char fileName_[]);
 };
 

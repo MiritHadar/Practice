@@ -1,7 +1,7 @@
 /******************************************************************************/
-/* Author: 		Mirit Hadar											  	      */
-/* Version: 	Final			  		                                      */
-/* Last update: 22-01-2020						                              */
+/* Author: 		    Mirit Hadar											  	  */
+/* Version: 	    Final			  		                                  */
+/* Last update:     22-01-2020						                          */
 /******************************************************************************/
 
 #include <iostream>				// cout
@@ -32,8 +32,9 @@ void Test(char *filename_)
 	Calculator calc;
 
 	vector<double> results = calc.Calculate(filename_);
+	cout << "Results of calculating expressions from " << filename_ << ":" << endl;
 	for(size_t i = 0; i < results.size(); ++i)
 	{
-		//cout << results[i] << endl;
+		cout << results[i] << endl;
 	}
 }

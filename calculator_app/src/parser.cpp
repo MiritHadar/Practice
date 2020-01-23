@@ -1,7 +1,7 @@
 /******************************************************************************/
-/* Author: 		Mirit Hadar											  	      */
-/* Version: 	Final			  		                                      */
-/* Last update: 22-01-2020						                              */
+/* Author: 		    Mirit Hadar											  	  */
+/* Version: 	    Final			  		                                  */
+/* Last update:     22-01-2020						                          */
 /******************************************************************************/
 
 #include <sstream>      // stringstream
@@ -25,7 +25,7 @@ vector<string> Parser::Parse(const char fileName_[])
     return expressionsToReturn;
 }
 
-string CopyFromFileToBuff(const char fileName_[])
+static string CopyFromFileToBuff(const char fileName_[])
 {
     stringbuf buff;
     ifstream myFile;
@@ -46,7 +46,7 @@ string CopyFromFileToBuff(const char fileName_[])
     return str;
 }
 
-vector<string> SplitStrIntoLines(string &str_)
+static vector<string> SplitStrIntoLines(string &str_)
 {
     stringstream stream;
     stream << str_;

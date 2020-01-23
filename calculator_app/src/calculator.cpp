@@ -1,7 +1,7 @@
 /******************************************************************************/
-/* Author: 		Mirit Hadar											  	      */
-/* Version: 	Final			  		                                      */
-/* Last update: 22-01-2020						                              */
+/* Author: 		    Mirit Hadar											  	  */
+/* Version: 	    Final			  		                                  */
+/* Last update:     22-01-2020						                          */
 /******************************************************************************/
 
 #include <iostream>            // cout
@@ -109,7 +109,7 @@ double Calculator::Execute(string str_)
     size_t lenStr = str_.length();
     size_t i = 0;
 
-    // Iterate over string, Transelate words to nums and calculate
+    // Iterate over string, convert words to nums and calculate
     while (i < lenStr)
     {
         g_lut_handler[static_cast<unsigned char>(str_[i])](m_numbersStack, m_operatorsStack, str_, i);
@@ -129,7 +129,7 @@ void Handler::AddOrReduce(stack<double> &numbersStack_, stack<char> &operatorsSt
 {
     UpdateNumbersStack(numbersStack_);
 
-    // Perform first arithmetic actions with priority, or former actions with similar priority
+    // Perform initially arithmetic actions with priority and former actions with similar priority
     while(!(operatorsStack_.empty()) && operatorsStack_.top() != '(')
     {
         ExecuteTopOperator(numbersStack_, operatorsStack_);
@@ -144,7 +144,7 @@ void Handler::MultiplyOrDivide(stack<double> &numbersStack_, stack<char> &operat
 {
     UpdateNumbersStack(numbersStack_);
     
-    // Perform first former actions with similar priority
+    // Perform initially former actions with similar priority
     while (!(operatorsStack_.empty()) &&
                 ((operatorsStack_.top() == '/') || (operatorsStack_.top() == '*')))
     {
@@ -180,7 +180,7 @@ void Handler::CloseBracket(stack<double> &numbersStack_, stack<char> &operatorsS
 
 void Handler::Num(stack<double> &numbersStack_, stack<char> &operatorsStack_, string &str_, size_t &i)
 {
-    // Find nest space or closing bracket
+    // Find next space or closing bracket position
     size_t nextPos = FindNextPos(str_, i);
     double num = ConvertStrToNum(str_.substr(i, 3));
 
@@ -222,7 +222,7 @@ void Handler::End(stack<double> &numbersStack_, stack<char> &operatorsStack_, st
 {
     UpdateNumbersStack(numbersStack_);
 
-    // Perform actions if left in operator's stack
+    // Perform actions if remain in operator's stack
     while (!operatorsStack_.empty())
     {
         g_lut_action[static_cast<unsigned char>(operatorsStack_.top())](numbersStack_, operatorsStack_);   
@@ -240,7 +240,7 @@ void Executer::Add(stack<double> &numbersStack_, stack<char> &operatorsStack_)
     // Push in the resault
     numbersStack_.push(result);
 
-    // Pop out the used operator
+    // Pop out the '+' operator
     operatorsStack_.pop();
 }
 
@@ -254,7 +254,7 @@ void Executer::Reduce(stack<double> &numbersStack_, stack<char> &operatorsStack_
     // Push in the resault
     numbersStack_.push(result);
 
-    // Pop out the used operator
+    // Pop out the '-' operator
     operatorsStack_.pop();
 }
 
@@ -268,7 +268,7 @@ void Executer::Divide(stack<double> &numbersStack_, stack<char> &operatorsStack_
     // Push in the resault
     numbersStack_.push(result);
 
-    // Pop out the used operator
+    // Pop out the '/' operator
     operatorsStack_.pop();
 }
 
@@ -282,7 +282,7 @@ void Executer::Multiply(stack<double> &numbersStack_, stack<char> &operatorsStac
     // Push in the resault
     numbersStack_.push(result);
 
-    // Pop out the used operator
+    // Pop out the '*' operator
     operatorsStack_.pop();
 }
 
@@ -338,12 +338,12 @@ static void InitHelperMaps()
     g_mapOfNums["Nin"] = 9;
 }
 
-double ConvertStrToNum(string str_)
+static double ConvertStrToNum(string str_)
 {
     return g_mapOfNums[str_];
 }
 
-size_t FindNextPos(string str_, size_t i)
+static size_t FindNextPos(string str_, size_t i)
 {
     size_t indexOfNextPos = str_.find(' ', i);
     if ((indexOfNextPos > str_.length()) || (str_[indexOfNextPos - 1] == ')'))

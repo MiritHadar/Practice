@@ -1,22 +1,16 @@
 /******************************************************************************/
-/* Author: 		Mirit Hadar											  	      */
-/* Version: 	Final			  		                                      */
-/* Last update: 22-01-2020						                              */
+/* Author: 		    Mirit Hadar											  	  */
+/* Version: 	    Final			  		                                  */
+/* Last update:     22-01-2020						                          */
 /******************************************************************************/
 
 #ifndef L1GHT_CALCULATOR
 #define L1GHT_CALCULATOR
 
-#if __cplusplus < 201103L
-#define nullptr NULL
-#define noexcept throw()
-#endif
-
 #include <vector>      	    // vector
 #include <stack>			// stack	
 
-#include "uncopyable.hpp"	// For inaccessible CCtor and assign operator
-#include "parser.hpp"		// add
+#include "parser.hpp"		// parser class header
 
 namespace l1ght
 {
