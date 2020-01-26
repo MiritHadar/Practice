@@ -25,5 +25,5 @@ For runnning the app enter "./calculator.out" followed by a file name containing
 
 /*     Notes    */
 
-The app assumes the expressions received are valid and intact.
-
+The app assumes expressions received are valid and intact.
+Use round brackets only, can use them nested.

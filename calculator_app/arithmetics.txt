@@ -4,4 +4,5 @@ Four Five * (Two + Three) + Six
 Three Three Three + (Nine * One One) + Zero + Five - (Nine + Nine)
 Seven Zero + Three Three Three One / (Four - One)
 (One + Three + Four * Nine) + (Four / Three + Two - Five) + Eight
+(Two * (Three + One))
 
