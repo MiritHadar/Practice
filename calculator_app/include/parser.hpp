@@ -4,8 +4,8 @@
 /* Last update:     22-01-2020						                          */
 /******************************************************************************/
 
-#ifndef L1GHT_PARSER
-#define L1GHT_PARSER
+#ifndef PARSER
+#define PARSER
 
 #include <vector>      	    // vector
 #include <fstream>			// ifstream
@@ -13,7 +13,7 @@
 
 #include "uncopyable.hpp"	// For inaccessible CCtor and assign operator
 
-namespace l1ght
+namespace mirit
 {
 
 class Parser : private Uncopyable
@@ -33,6 +33,6 @@ public:
 	explicit FileDoesntOpen(const std::string &errorString_ = "");
 };
 
-} // namespace l1ght
+} // namespace mirit
 
-#endif  //L1GHT_PARSER
+#endif  // PARSER

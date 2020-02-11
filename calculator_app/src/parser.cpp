@@ -9,7 +9,7 @@
 
 #include "parser.hpp"   // header file
 
-namespace l1ght
+namespace mirit
 {
 
 using namespace std;
@@ -69,4 +69,4 @@ FileDoesntOpen::FileDoesntOpen(const std::string &what_)
     ;
 }
 
-} // namespace l1ght
+} // namespace mirit

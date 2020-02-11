@@ -4,10 +4,10 @@
 /* Last update:     22-01-2020						                          */
 /******************************************************************************/
 
-#ifndef L1GHT_UNCOPYABLE
-#define L1GHT_UNCOPYABLE
+#ifndef UNCOPYABLE
+#define UNCOPYABLE
 
-namespace l1ght
+namespace mirit
 {
 
 class Uncopyable
@@ -27,6 +27,6 @@ private:
     Uncopyable &operator=(const Uncopyable &other_);
 };
 
-} // namespace l1ght
+} // namespace mirit
 
-#endif // L1GHT_UNCOPYABLE
+#endif // UNCOPYABLE

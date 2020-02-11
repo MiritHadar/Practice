@@ -9,7 +9,7 @@
 #include "calculator.hpp"		// header file		
 
 using namespace std;
-using namespace l1ght;
+using namespace mirit;
 
 void Test(char *filename_);
 

@@ -9,7 +9,7 @@
 
 #include "calculator.hpp"      // header file
 
-namespace l1ght
+namespace mirit
 {
 
 using namespace std;
@@ -354,4 +354,4 @@ static size_t FindNextPos(string str_, size_t i)
     return indexOfNextPos;
 }
 
-} // namespace l1ght
+} // namespace mirit

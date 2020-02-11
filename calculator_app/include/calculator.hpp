@@ -4,15 +4,15 @@
 /* Last update:     22-01-2020						                          */
 /******************************************************************************/
 
-#ifndef L1GHT_CALCULATOR
-#define L1GHT_CALCULATOR
+#ifndef CALCULATOR
+#define CALCULATOR
 
 #include <vector>      	    // vector
 #include <stack>			// stack	
 
 #include "parser.hpp"		// parser class header
 
-namespace l1ght
+namespace mirit
 {
 
 class Calculator : private Uncopyable
@@ -37,6 +37,6 @@ private:
 	double Execute(std::string str_);
 };
 
-} // namespace l1ght
+} // namespace mirit
 
-#endif // L1GHT_CALCULATOR
+#endif // CALCULATOR
