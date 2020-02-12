@@ -5,7 +5,7 @@
 /* Last update: 07-10-2019					                                  */
 /******************************************************************************/
 
-#include <iostream>			//	cout 	
+#include <iostream>			//	cout
 
 #include "action.hpp"		//	Header file		
 
