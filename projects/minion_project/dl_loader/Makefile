@@ -37,7 +37,6 @@ include $(ROOT_DIR)/Make/Project.mak
 
 
 
-
 ################################################################################
 
 # make -f another name - for working with makefile with another name
