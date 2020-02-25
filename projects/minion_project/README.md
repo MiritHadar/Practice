@@ -13,7 +13,6 @@ The tests generates write and read requests for minions using the following UDP 
   + status: 1 byte
   + In case of read request - Data (4kb)
 
-
 ### Notes:
 + You should run your minion program before running the test.
 + All tests receive the minion IP address and port number as command line parameters. (for example: ./test1 127.0.0.1 12345).

@@ -1,5 +1,0 @@
-One + Three * One Zero
-Four Five * Two + Three - Six
-Two Zero + Seven Eight
-Five Six * One * Zero + One Seven * One Zero
-Five Three Seven * Eight Nine - Six Six Six + Four Zero - One Eight
