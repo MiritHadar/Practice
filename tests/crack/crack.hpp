@@ -19,6 +19,7 @@ namespace mirit
 {
 
 bool IsAllStrUnique(const char *str);
+bool IsAllStrUnique(string &str);
 bool IsAllStrUniqueNoDs(string str);
 void ReplaceSpaces(string &str);
 void RemoveSpaces(string &str);

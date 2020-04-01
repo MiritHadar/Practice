@@ -16,7 +16,6 @@ struct heap
     size_t elem_size;
 };
 
-
 heap_t *HeapCreate(size_t item_size, is_before_t is_before, void *param)
 {
     heap_t *heap = NULL;

@@ -52,6 +52,24 @@ bool IsAllStrUnique(const char *str)
     return true;
 }
 
+bool IsAllStrUnique(string &str)
+{
+    char lut[256] = {0};
+
+    for (size_t i = 0; i < str.size(); ++i)
+    {
+        if (lut[static_cast<int>(str[i])] != 0)
+        {
+            return false;
+        }
+
+        ++lut[static_cast<int>(str[i])];
+    }
+
+    return true;
+}
+
+
 bool IsAllStrUniqueNoDs(string str)
 {
     for (size_t i = 0; i < str.length(); ++i)
@@ -168,7 +186,7 @@ static void Copy(string &str, size_t i)
 
 int Fibonacci(int n)
 {
-    
+    return 0;
 }
 
 

@@ -159,7 +159,7 @@ int DVReserve(vector_t *v, size_t num_to_reserve)
 		return 0;
 	}
 	
-    if (v->num_of_elements > num_to_reserve) /*update num of elements if neede*/
+    if (v->num_of_elements > num_to_reserve) /*update num of elements if needed*/
 	{
 		v->num_of_elements = num_to_reserve;
 	}

@@ -21,8 +21,8 @@ void RemoveSpacesTest();
 int main()
 {
 	UniqueTest();
-	PolindromeTest();
-	RemoveSpacesTest();
+	//PolindromeTest();
+	//RemoveSpacesTest();
 
 	return 0;
 }
@@ -49,6 +49,12 @@ void UniqueTest()
 	{
 		cout << "error in: " << __LINE__ << endl;
 	}
+
+	string str = "mirit hadar";
+	cout << "Is unique? " << IsAllStrUnique(str) << endl;
+
+	string strNew = "kolpfr xz";
+	cout << "Is unique? " << IsAllStrUnique(strNew) << endl;
 }
 
 void SpaceTest()
